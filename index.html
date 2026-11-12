@@ -180,7 +180,7 @@
 <div class="card">
 <div class="resulthead" style="margin-bottom:4px">
  <div><h2 style="margin:0">Chat Geral da Comunidade</h2><p class="sub" style="margin:2px 0 0">Converse em tempo real com outros motoristas do Mercado Livre e Shopee conectados no painel.</p></div>
- <span class="tag green" id="gcStatusBadge"><span class="gc-online-dot" style="margin-right:5px"></span>Ao vivo</span>
+ <span class="tag green" id="gcStatusBadge"><span class="gc-online-dot" style="margin-right:5px"></span><span id="gcOnlineCount">1</span> motorista(s) online</span>
 </div>
 
 <div id="gcLoginView" class="gc-login-box">
@@ -189,7 +189,7 @@
  <form id="gcJoinForm" class="gc-login-fields">
   <div>
    <label for="gcNameInput" style="display:block;margin-bottom:5px">Seu Nome ou Apelido</label>
-   <input type="text" id="gcNameInput" placeholder="Ex.: Carlos • Fiorino" maxlength="32" autocomplete="off" required>
+   <input type="text" id="gcNameInput" placeholder="Ex.: Carlos • Fiorino (ou o código adm)" maxlength="45" autocomplete="off" required>
   </div>
   <div>
    <label for="gcPlatSelect" style="display:block;margin-bottom:5px">Operação Principal</label>
@@ -206,6 +206,7 @@
 <div id="gcRoomView" class="hidden">
  <div class="gc-user-bar">
   <div class="gc-user-info" id="gcCurrentUserBadge"></div>
+  <div style="font-size:11px;font-weight:800;color:#16a34a;background:#dcfce7;padding:4px 10px;border-radius:99px;border:1px solid #bbf7d0" id="gcRoomOnlineLabel">🟢 1 motorista online</div>
   <button type="button" class="btn light" id="gcLeaveBtn" style="padding:6px 11px;font-size:11px">Alterar Nome / Sair</button>
  </div>
  <div class="gc-feed" id="gcFeed"></div>
@@ -584,7 +585,7 @@ REGRAS DE IDENTIDADE E COMPORTAMENTO:
 5. Caso o usuário pergunte outros assuntos gerais (alimentação na rota, trânsito, organização, etc.), responda de forma prestativa e humanizada sem perder sua persona.`;
 
  aiChatHistory.push({role:'user',parts:[{text:userText}]});
- const recentHistory=aiChatHistory.slice(-10);
+ let recentHistory=aiChatHistory.slice(-10);
 
  let attempt=0,maxRetries=3,delay=1000,success=false;
  while(attempt<maxRetries&&!success){
@@ -637,7 +638,7 @@ document.querySelectorAll('#chatSuggestions .chip').forEach(btn=>{
  btn.addEventListener('click',()=>askAbraaoAI(btn.dataset.prompt));
 });
 
-// ================= CHAT GERAL EM TEMPO REAL + CHAVE SECRETA ADMINISTRADOR =================
+// ================= CHAT GERAL EM TEMPO REAL COM NUVEM + CHAVE SECRETA ADMINISTRADOR (COM NOME PERSONALIZADO) =================
 const ADMIN_SECRET_CODE='544111';
 const gcLoginView=$('gcLoginView'),gcRoomView=$('gcRoomView'),gcJoinForm=$('gcJoinForm');
 const gcNameInput=$('gcNameInput'),gcPlatSelect=$('gcPlatSelect'),gcCurrentUserBadge=$('gcCurrentUserBadge');
@@ -650,16 +651,16 @@ if(!gcClientId){
  try{localStorage.setItem('afe_gc_client_id',JSON.stringify(gcClientId));}catch{}
 }
 let gcMessages=[];
-let gcCloudReady=false;
+window._gcPushCloud=null;
 
 function escapeHtml(str){
  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function buildAdminTagHtml(){
+function buildAdminTagHtml(customName='Abraão Gessé'){
  return `<span class="admin-tag" title="Administrador Oficial e Moderador do Sistema">
   <span class="crown">👑</span>
-  <span>Abraão Gessé</span>
+  <span>${escapeHtml(customName)}</span>
   <span class="verified-check">✓</span>
   <span class="role-pill">ADM • MODERADOR</span>
  </span>`;
@@ -668,7 +669,7 @@ function buildAdminTagHtml(){
 function updateGcHeader(){
  if(!gcUser)return;
  if(gcUser.isAdmin){
-  gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: ${buildAdminTagHtml()}`;
+  gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: ${buildAdminTagHtml(gcUser.adminCustomName||'Abraão Gessé')}`;
  }else{
   const platCls=gcUser.platform==='Shopee'?'shopee':(gcUser.platform==='Ambas'?'ambas':'ml');
   gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: <b>${escapeHtml(gcUser.name)}</b> <span class="driver-plat-tag ${platCls}">${escapeHtml(gcUser.platform)}</span>`;
@@ -692,7 +693,7 @@ function renderGcMessages(){
   const timeStr=m.ts?new Date(m.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
   let authorHtml='';
   if(m.isAdmin){
-   authorHtml=buildAdminTagHtml();
+   authorHtml=buildAdminTagHtml(m.adminCustomName||m.name||'Abraão Gessé');
   }else{
    const platCls=m.platform==='Shopee'?'shopee':(m.platform==='Ambas'?'ambas':'ml');
    authorHtml=`<span class="gc-author">${escapeHtml(m.name)}</span><span class="driver-plat-tag ${platCls}">${escapeHtml(m.platform||'Mercado Livre')}</span>`;
@@ -718,16 +719,20 @@ function refreshGcView(){
 
 gcJoinForm.addEventListener('submit',e=>{
  e.preventDefault();
- const rawName=gcNameInput.value.trim();
- if(!rawName)return;
- if(rawName===ADMIN_SECRET_CODE){
-  gcUser={name:'Abraão Gessé',isAdmin:true,platform:'Administração'};
+ const rawInput=gcNameInput.value.trim();
+ if(!rawInput)return;
+
+ // Verifica se o input começa com o código secreto "544111"
+ if(rawInput.startsWith(ADMIN_SECRET_CODE)){
+  const restOfText=rawInput.slice(ADMIN_SECRET_CODE.length).trim();
+  const customAdminName=restOfText.length>0?restOfText:'Abraão Gessé';
+  gcUser={name:customAdminName,isAdmin:true,adminCustomName:customAdminName,platform:'Administração'};
   try{localStorage.setItem('afe_gc_user',JSON.stringify(gcUser));}catch{}
   gcNameInput.value='';
   refreshGcView();
-  showToast('Acesso Moderador Liberado','Bem-vindo, Abraão Gessé! Sua TAG oficial de Administrador e Moderador está ativa.','both');
+  showToast('Acesso Moderador Liberado',`Bem-vindo, ${customAdminName}! Sua TAG oficial de Administrador está ativa.`,'both');
  }else{
-  gcUser={name:rawName,isAdmin:false,platform:gcPlatSelect.value||'Mercado Livre'};
+  gcUser={name:rawInput,isAdmin:false,platform:gcPlatSelect.value||'Mercado Livre'};
   try{localStorage.setItem('afe_gc_user',JSON.stringify(gcUser));}catch{}
   gcNameInput.value='';
   refreshGcView();
@@ -747,21 +752,28 @@ async function sendGcMessage(text){
  const msgObj={
   id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2,6)),
   clientId:gcClientId,
-  name:gcUser.isAdmin?'Abraão Gessé':gcUser.name,
+  name:gcUser.isAdmin?(gcUser.adminCustomName||'Abraão Gessé'):gcUser.name,
   isAdmin:Boolean(gcUser.isAdmin),
+  adminCustomName:gcUser.adminCustomName||'',
   platform:gcUser.platform||'Mercado Livre',
   text:clean,
   ts:Date.now()
  };
+
+ if(window._gcPushCloud){
+  try{
+   await window._gcPushCloud(msgObj);
+   return;
+  }catch(err){
+   console.debug('Cloud send fallback:',err);
+  }
+ }
+
  gcMessages.push(msgObj);
  if(gcMessages.length>120)gcMessages=gcMessages.slice(-120);
  try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
  renderGcMessages();
  gcFeed.scrollTop=gcFeed.scrollHeight;
-
- if(gcCloudReady&&window._gcPushCloud){
-  try{await window._gcPushCloud(msgObj);}catch{}
- }
 }
 
 gcMsgForm.addEventListener('submit',e=>{
@@ -771,13 +783,7 @@ gcMsgForm.addEventListener('submit',e=>{
  sendGcMessage(txt);
 });
 
-// Carrega cache local imediato e sincroniza entre abas
 gcMessages=Array.isArray(readJSON('afe_gc_cache',[]))?readJSON('afe_gc_cache',[]):[];
-window.addEventListener('storage',e=>{
- if(e.key==='afe_gc_cache'&&e.newValue){
-  try{gcMessages=JSON.parse(e.newValue)||[];renderGcMessages();}catch{}
- }
-});
 refreshGcView();
 
 renderSettings();renderAll();
@@ -785,7 +791,7 @@ renderSettings();renderAll();
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 (async function initRealtimeCommunityChat(){
  try{
@@ -805,7 +811,40 @@ import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstati
   if(!user)return;
 
   const chatCol=collection(db,'artifacts',appId,'public','data','general_chat_messages');
-  gcCloudReady=true;
+  const presenceCol=collection(db,'artifacts',appId,'public','data','online_presence');
+  const presenceRef=doc(presenceCol,gcClientId);
+
+  const updatePresence=async()=>{
+   try{
+    await setDoc(presenceRef,{
+     clientId:gcClientId,
+     name:gcUser?gcUser.name:'Visitante',
+     platform:gcUser?gcUser.platform:'Mercado Livre',
+     lastSeen:Date.now()
+    },{merge:true});
+   }catch(e){}
+  };
+  updatePresence();
+  setInterval(updatePresence,30000);
+
+  window.addEventListener('beforeunload',()=>{
+   try{ deleteDoc(presenceRef); }catch(e){}
+  });
+
+  onSnapshot(presenceCol,(snap)=>{
+   let activeCount=0;
+   const now=Date.now();
+   snap.forEach(dSnap=>{
+    const d=dSnap.data();
+    if(d&&d.lastSeen&&(now-d.lastSeen)<45000){
+     activeCount++;
+    }
+   });
+   const countEl=$('gcOnlineCount');
+   const roomLabel=$('gcRoomOnlineLabel');
+   if(countEl)countEl.textContent=Math.max(1,activeCount);
+   if(roomLabel)roomLabel.textContent=`🟢 ${Math.max(1,activeCount)} motorista(s) online`;
+  },(err)=>{});
 
   window._gcPushCloud=async(msgObj)=>{
    await addDoc(chatCol,{
@@ -813,6 +852,7 @@ import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstati
     clientId:msgObj.clientId,
     name:msgObj.name,
     isAdmin:Boolean(msgObj.isAdmin),
+    adminCustomName:msgObj.adminCustomName||'',
     platform:msgObj.platform,
     text:msgObj.text,
     ts:msgObj.ts
@@ -829,6 +869,7 @@ import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstati
       clientId:d.clientId||'',
       name:d.name||'Motorista',
       isAdmin:Boolean(d.isAdmin),
+      adminCustomName:d.adminCustomName||'',
       platform:d.platform||'Mercado Livre',
       text:d.text,
       ts:Number(d.ts||0)
