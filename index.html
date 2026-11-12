@@ -77,7 +77,7 @@
 .sources-list{margin-top:8px;padding-top:6px;border-top:1px dashed #cbd5ed;font-size:10px;color:#5a6782}
 .sources-list a{color:var(--blue);text-decoration:underline;margin-right:8px}
 
-/* Estilos da Aba Chat Geral da Comunidade */
+/* Estilos da Aba Chat Geral da Comunidade com Fundo Logístico WhatsApp */
 .gc-login-box{background:linear-gradient(145deg,#f8faff 0%,#eef3ff 100%);border:1.5px solid #d5e0fb;border-radius:16px;padding:20px;max-width:460px;margin:14px auto;text-align:center}
 .gc-login-box h3{font-size:16px;color:var(--navy);margin-bottom:6px}
 .gc-login-box p{font-size:12px;color:var(--muted);margin:0 0 14px;line-height:1.45}
@@ -87,9 +87,9 @@
 .gc-user-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px 14px;margin-bottom:12px}
 .gc-user-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;color:#334155}
 .gc-online-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2);display:inline-block}
-.gc-feed{height:520px;overflow-y:auto;background:#fbfcfe;border:1px solid #dce2ed;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-.gc-msg{max-width:86%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.45;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;align-self:flex-start;box-shadow:0 2px 6px rgba(15,23,42,.03)}
-.gc-msg.mine{align-self:flex-end;background:#eef3ff;border-color:#c7d7fe}
+.gc-feed{height:520px;overflow-y:auto;background-color:#eae6df;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%23bdaea3' stroke-opacity='.32' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 30h30v20H20zM50 35h10l8 8v5H50zM56 48a3 3 0 1 0 6 0M25 48a3 3 0 1 0 6 0M20 35h30'/%3E%3Cpath d='M140 25h35l4 10v12h-39v-22zM147 25l4-7h14l4 7M146 47a3 3 0 1 0 6 0M171 47a3 3 0 1 0 6 0'/%3E%3Cpath d='M30 140h30v30H30zM45 125v15M30 155h60'/%3E%3Cpath d='M140 140c-7 0-12 5-12 12 0 9 12 21 12 21s12-12 12-21c0-7-5-12-12-12z'/%3E%3Ccircle cx='140' cy='152' r='4'/%3E%3C/g%3E%3C/svg%3E");border:1px solid #dce2ed;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.gc-msg{position:relative;z-index:1;max-width:86%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.45;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;align-self:flex-start;box-shadow:0 2px 6px rgba(15,23,42,.03)}
+.gc-msg.mine{align-self:flex-end;background:#dcf8c6;border-color:#c7eec0}
 .gc-msg.is-admin{align-self:flex-start;background:linear-gradient(135deg,#fffef5 0%,#fff8d6 100%);border:1.5px solid #e6c200;border-left:5px solid #172554;box-shadow:0 6px 18px rgba(23,37,84,.09)}
 .gc-msg.mine.is-admin{align-self:flex-end;border-left:1.5px solid #e6c200;border-right:5px solid #172554}
 .gc-msg-head{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;font-size:11px}
@@ -98,9 +98,11 @@
 .gc-msg-text{color:#172033;font-weight:500}
 
 /* TAG Super Personalizada do Administrador / Moderador */
-.admin-tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#172554 0%,#253b80 65%,#1e3a8a 100%);color:#ffe600;border:1.5px solid #f59e0b;padding:3px 9px;border-radius:99px;font-size:10.5px;font-weight:900;letter-spacing:.03em;box-shadow:0 3px 10px rgba(23,37,84,.25),inset 0 1px 0 rgba(255,255,255,.2)}
+.admin-tag{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(112deg,#5b4314 0%,#a77a20 18%,#f8e6a1 38%,#9a6d18 58%,#f3d77e 78%,#6b4b12 100%);color:#241a08;border:1px solid #f4df9a;padding:4px 10px;border-radius:8px;font-size:10.5px;font-weight:950;letter-spacing:.045em;text-shadow:0 1px 0 rgba(255,255,255,.45);box-shadow:0 3px 10px rgba(92,65,14,.24),inset 0 1px 0 rgba(255,255,255,.7)}
+.admin-tag:after{content:"";position:absolute;z-index:-1;top:-60%;bottom:-60%;left:-45%;width:28%;transform:rotate(22deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.72),transparent);animation:adminSheen 5.8s ease-in-out infinite}
+@keyframes adminSheen{0%,72%{left:-45%;opacity:0}78%{opacity:.9}92%,100%{left:130%;opacity:0}}
 .admin-tag .crown{font-size:12px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
-.admin-tag .role-pill{background:#ffe600;color:#172554;padding:1px 6px;border-radius:99px;font-size:8.5px;font-weight:950;text-transform:uppercase;letter-spacing:.06em;margin-left:2px}
+.admin-tag .role-pill{background:linear-gradient(135deg,#172554,#263b80);color:#ffe9a3;padding:2px 6px;border:1px solid rgba(255,238,180,.5);border-radius:5px;font-size:8.5px;font-weight:950;text-transform:uppercase;letter-spacing:.06em;margin-left:2px}
 .admin-tag .verified-check{display:inline-grid;place-items:center;width:13px;height:13px;border-radius:50%;background:#16a34a;color:#fff;font-size:8.5px;font-weight:900}
 .driver-plat-tag{font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:99px}
 .driver-plat-tag.ml{background:#fff59d;color:#172554;border:1px solid #e6d000}
@@ -185,11 +187,11 @@
 
 <div id="gcLoginView" class="gc-login-box">
  <h3>Entrar no Chat Geral</h3>
- <p>Informe seu nome ou apelido de motorista para visualizar e enviar mensagens para todos os participantes online.</p>
+ <p>Informe seu apelido de motorista para visualizar e enviar mensagens para todos os participantes online em tempo real.</p>
  <form id="gcJoinForm" class="gc-login-fields">
   <div>
-   <label for="gcNameInput" style="display:block;margin-bottom:5px">Seu Nome ou Apelido</label>
-   <input type="text" id="gcNameInput" placeholder="Ex.: Carlos • Fiorino (ou o código adm)" maxlength="45" autocomplete="off" required>
+   <label for="gcNameInput" style="display:block;margin-bottom:5px">Seu Nome ou Apelido (ou digite a TAG 544111)</label>
+   <input type="text" id="gcNameInput" placeholder="Ex.: Carlos • Fiorino (ou 544111 Abraão Gestor)" maxlength="45" autocomplete="off" required>
   </div>
   <div>
    <label for="gcPlatSelect" style="display:block;margin-bottom:5px">Operação Principal</label>
@@ -266,7 +268,6 @@ document.querySelectorAll('.market-logo').forEach(btn=>{
 
 function persist(){try{localStorage.setItem('afe_settings',JSON.stringify(settings));localStorage.setItem('afe_routes',JSON.stringify(routes))}catch(e){showToast('Falha no Armazenamento','Não foi possível gravar os registros localmente no navegador.','both');throw e}}
 
-// Função para exibir notificação sofisticada com os logotipos oficiais reais do Mercado Livre e Shopee
 function getPlatformLogoMarkup(platform){
  const mlImg=`<img src="https://upload.wikimedia.org/wikipedia/pt/0/04/Logotipo_MercadoLivre.png" alt="Mercado Livre" onerror="this.onerror=null;this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo__small@2x.png'">`;
  const shopeeImg=`<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/512px-Shopee_logo.svg.png" alt="Shopee" onerror="this.onerror=null;this.src='https://cdn.worldvectorlogo.com/logos/shopee-1.svg'">`;
@@ -406,7 +407,10 @@ function renderReports(){
 
 function renderSettings(){$('maintenance').value=settings.maintenance;$('defaultFuel').value=settings.fuel;$('defaultConsumption').value=settings.defaultConsumption;$('dailyGoal').value=settings.dailyGoal}
 function renderAll(){renderCalc();renderHistory();renderReports();renderSettings()}
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.page).classList.add('active');renderAll()}));
+function activateTab(pageId,save=true){const tab=Array.from(document.querySelectorAll('.tab')).find(x=>x.dataset.page===pageId),page=$(pageId);if(!tab||!page)return;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===tab));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x===page));if(save){try{localStorage.setItem('afe_active_tab',pageId)}catch(e){}}renderAll()}
+const savedTab=(()=>{try{return localStorage.getItem('afe_active_tab')}catch(e){return null}})();
+if(savedTab&&Array.from(document.querySelectorAll('.tab')).some(x=>x.dataset.page===savedTab)&&$(savedTab))activateTab(savedTab,false);
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.page,true)));
 ['km','liters','fuel','tolls','parking','other','gross'].forEach(id=>$(id).addEventListener('input',renderCalc));['includeGross','includeExtras','useDefaultConsumption'].forEach(id=>$(id).addEventListener('change',renderCalc));
 $('fuel').value=settings.fuel;
 $('saveRoute').onclick=()=>{const d=costData();if(d.km<=0){showToast('Dado Obrigatório Ausente','Informe a quilometragem total percorrida na operação.',selectedPlatform);return}if(d.liters<=0){showToast('Consumo Não Informado',d.autoConsumption?'Configure um consumo médio válido para o cálculo automático.':'Informe o volume de combustível consumido em litros.',selectedPlatform);return}if(d.fuel<=0){showToast('Cotação Pendente','Informe o valor unitário atual do combustível por litro.',selectedPlatform);return}if(d.hasGross&&d.gross<=0){showToast('Faturamento Pendente','Informe o repasse bruto oferecido ou desative a opção correspondente.',selectedPlatform);return}const route={...d,id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),date:today(),createdAt:Date.now(),maintenanceRate:settings.maintenance};routes.push(route);persist();renderAll();showToast(`Operação ${selectedPlatform} Consolidada`,`Rota registrada com sucesso no livro-caixa e nos indicadores de desempenho.`,selectedPlatform)};
