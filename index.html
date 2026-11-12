@@ -810,8 +810,9 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } 
   const user=auth.currentUser;
   if(!user)return;
 
-  const chatCol=collection(db,'artifacts',appId,'public','data','general_chat_messages');
-  const presenceCol=collection(db,'artifacts',appId,'public','data','online_presence');
+  // CORREÇÃO DOS CAMINHOS DO FIRESTORE PARA GARANTIR COMPARTILHAMENTO GLOBAL ENTRE TODOS OS DISPOSITIVOS
+  const chatCol=collection(db,'artifacts',appId,'public','data','global_community_chat_v2');
+  const presenceCol=collection(db,'artifacts',appId,'public','data','global_online_presence_v2');
   const presenceRef=doc(presenceCol,gcClientId);
 
   const updatePresence=async()=>{
@@ -825,7 +826,7 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } 
    }catch(e){}
   };
   updatePresence();
-  setInterval(updatePresence,30000);
+  setInterval(updatePresence,15000);
 
   window.addEventListener('beforeunload',()=>{
    try{ deleteDoc(presenceRef); }catch(e){}
@@ -836,7 +837,7 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } 
    const now=Date.now();
    snap.forEach(dSnap=>{
     const d=dSnap.data();
-    if(d&&d.lastSeen&&(now-d.lastSeen)<45000){
+    if(d&&d.lastSeen&&(now-d.lastSeen)<35000){
      activeCount++;
     }
    });
@@ -877,7 +878,7 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } 
     }
    });
    list.sort((a,b)=>a.ts-b.ts);
-   gcMessages=list.slice(-120);
+   gcMessages=list.slice(-150);
    try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
    renderGcMessages();
   },(err)=>{
