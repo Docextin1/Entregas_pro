@@ -722,7 +722,6 @@ gcJoinForm.addEventListener('submit',e=>{
  const rawInput=gcNameInput.value.trim();
  if(!rawInput)return;
 
- // Verifica se o input começa com o código secreto "544111"
  if(rawInput.startsWith(ADMIN_SECRET_CODE)){
   const restOfText=rawInput.slice(ADMIN_SECRET_CODE.length).trim();
   const customAdminName=restOfText.length>0?restOfText:'Abraão Gessé';
@@ -770,7 +769,7 @@ async function sendGcMessage(text){
  }
 
  gcMessages.push(msgObj);
- if(gcMessages.length>120)gcMessages=gcMessages.slice(-120);
+ if(gcMessages.length>150)gcMessages=gcMessages.slice(-150);
  try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
  renderGcMessages();
  gcFeed.scrollTop=gcFeed.scrollHeight;
@@ -791,7 +790,7 @@ renderSettings();renderAll();
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 (async function initRealtimeCommunityChat(){
  try{
@@ -810,9 +809,8 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } 
   const user=auth.currentUser;
   if(!user)return;
 
-  // CORREÇÃO DOS CAMINHOS DO FIRESTORE PARA GARANTIR COMPARTILHAMENTO GLOBAL ENTRE TODOS OS DISPOSITIVOS
-  const chatCol=collection(db,'artifacts',appId,'public','data','global_community_chat_v2');
-  const presenceCol=collection(db,'artifacts',appId,'public','data','global_online_presence_v2');
+  const chatCol=collection(db,'artifacts',appId,'public','data','global_community_chat_v3');
+  const presenceCol=collection(db,'artifacts',appId,'public','data','global_online_presence_v3');
   const presenceRef=doc(presenceCol,gcClientId);
 
   const updatePresence=async()=>{
@@ -826,18 +824,19 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc } 
    }catch(e){}
   };
   updatePresence();
-  setInterval(updatePresence,15000);
+  setInterval(updatePresence,10000);
 
   window.addEventListener('beforeunload',()=>{
    try{ deleteDoc(presenceRef); }catch(e){}
   });
 
+  // Atualizador e Sincronizador Ativo de Presença e Mensagens
   onSnapshot(presenceCol,(snap)=>{
    let activeCount=0;
    const now=Date.now();
    snap.forEach(dSnap=>{
     const d=dSnap.data();
-    if(d&&d.lastSeen&&(now-d.lastSeen)<35000){
+    if(d&&d.lastSeen&&(now-d.lastSeen)<30000){
      activeCount++;
     }
    });
