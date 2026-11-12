@@ -187,11 +187,11 @@
 
 <div id="gcLoginView" class="gc-login-box">
  <h3>Entrar no Chat Geral</h3>
- <p>Informe seu apelido de motorista para visualizar e enviar mensagens para todos os participantes online em tempo real.</p>
+ <p>Informe seu nome ou apelido de motorista para visualizar e enviar mensagens para todos os participantes online em tempo real.</p>
  <form id="gcJoinForm" class="gc-login-fields">
   <div>
-   <label for="gcNameInput" style="display:block;margin-bottom:5px">Seu Nome ou Apelido (ou digite a TAG 544111)</label>
-   <input type="text" id="gcNameInput" placeholder="Ex.: Carlos • Fiorino (ou 544111 Abraão Gestor)" maxlength="45" autocomplete="off" required>
+   <label for="gcNameInput" style="display:block;margin-bottom:5px">Seu Nome ou Apelido</label>
+   <input type="text" id="gcNameInput" placeholder="Ex.: Carlos • Fiorino" maxlength="45" autocomplete="off" required>
   </div>
   <div>
    <label for="gcPlatSelect" style="display:block;margin-bottom:5px">Operação Principal</label>
@@ -642,7 +642,7 @@ document.querySelectorAll('#chatSuggestions .chip').forEach(btn=>{
  btn.addEventListener('click',()=>askAbraaoAI(btn.dataset.prompt));
 });
 
-// ================= CHAT GERAL EM TEMPO REAL COM NUVEM + CHAVE SECRETA ADMINISTRADOR (COM NOME PERSONALIZADO) =================
+// ================= CHAT GERAL EM TEMPO REAL CORRIGIDO (COM FIREBASE SDK GLOBAL ESTÁVEL) =================
 const ADMIN_SECRET_CODE='544111';
 const gcLoginView=$('gcLoginView'),gcRoomView=$('gcRoomView'),gcJoinForm=$('gcJoinForm');
 const gcNameInput=$('gcNameInput'),gcPlatSelect=$('gcPlatSelect'),gcCurrentUserBadge=$('gcCurrentUserBadge');
@@ -794,7 +794,7 @@ renderSettings();renderAll();
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 (async function initRealtimeCommunityChat(){
  try{
@@ -813,8 +813,9 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc, g
   const user=auth.currentUser;
   if(!user)return;
 
-  const chatCol=collection(db,'artifacts',appId,'public','data','global_community_chat_v3');
-  const presenceCol=collection(db,'artifacts',appId,'public','data','global_online_presence_v3');
+  // Caminho público compartilhado e padronizado em nuvem
+  const chatCol=collection(db,'artifacts',appId,'public','data','global_community_chat_v4');
+  const presenceCol=collection(db,'artifacts',appId,'public','data','global_online_presence_v4');
   const presenceRef=doc(presenceCol,gcClientId);
 
   const updatePresence=async()=>{
@@ -834,7 +835,6 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc, g
    try{ deleteDoc(presenceRef); }catch(e){}
   });
 
-  // Atualizador e Sincronizador Ativo de Presença e Mensagens
   onSnapshot(presenceCol,(snap)=>{
    let activeCount=0;
    const now=Date.now();
@@ -863,7 +863,8 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc, g
    });
   };
 
-  onSnapshot(chatCol,(snap)=>{
+  const q=query(chatCol,orderBy('ts','asc'),limit(150));
+  onSnapshot(q,(snap)=>{
    const list=[];
    snap.forEach(docSnap=>{
     const d=docSnap.data();
@@ -880,8 +881,7 @@ import { getFirestore, collection, addDoc, onSnapshot, doc, setDoc, deleteDoc, g
      });
     }
    });
-   list.sort((a,b)=>a.ts-b.ts);
-   gcMessages=list.slice(-150);
+   gcMessages=list;
    try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
    renderGcMessages();
   },(err)=>{
