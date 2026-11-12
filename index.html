@@ -77,6 +77,36 @@
 .sources-list{margin-top:8px;padding-top:6px;border-top:1px dashed #cbd5ed;font-size:10px;color:#5a6782}
 .sources-list a{color:var(--blue);text-decoration:underline;margin-right:8px}
 
+/* Estilos da Aba Chat Geral da Comunidade */
+.gc-login-box{background:linear-gradient(145deg,#f8faff 0%,#eef3ff 100%);border:1.5px solid #d5e0fb;border-radius:16px;padding:20px;max-width:460px;margin:14px auto;text-align:center}
+.gc-login-box h3{font-size:16px;color:var(--navy);margin-bottom:6px}
+.gc-login-box p{font-size:12px;color:var(--muted);margin:0 0 14px;line-height:1.45}
+.gc-login-fields{display:flex;flex-direction:column;gap:10px;text-align:left}
+.gc-login-fields input,.gc-login-fields select{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;font-size:14px;font-weight:650;font-family:inherit;background:#fff;outline:none}
+.gc-login-fields input:focus,.gc-login-fields select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #253b8018}
+.gc-user-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.gc-user-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;color:#334155}
+.gc-online-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2);display:inline-block}
+.gc-feed{height:520px;overflow-y:auto;background:#fbfcfe;border:1px solid #dce2ed;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.gc-msg{max-width:86%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.45;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;align-self:flex-start;box-shadow:0 2px 6px rgba(15,23,42,.03)}
+.gc-msg.mine{align-self:flex-end;background:#eef3ff;border-color:#c7d7fe}
+.gc-msg.is-admin{align-self:flex-start;background:linear-gradient(135deg,#fffef5 0%,#fff8d6 100%);border:1.5px solid #e6c200;border-left:5px solid #172554;box-shadow:0 6px 18px rgba(23,37,84,.09)}
+.gc-msg.mine.is-admin{align-self:flex-end;border-left:1.5px solid #e6c200;border-right:5px solid #172554}
+.gc-msg-head{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;font-size:11px}
+.gc-author{font-weight:850;color:#1e293b}
+.gc-time{font-size:10px;color:#94a3b8;margin-left:auto}
+.gc-msg-text{color:#172033;font-weight:500}
+
+/* TAG Super Personalizada do Administrador / Moderador */
+.admin-tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#172554 0%,#253b80 65%,#1e3a8a 100%);color:#ffe600;border:1.5px solid #f59e0b;padding:3px 9px;border-radius:99px;font-size:10.5px;font-weight:900;letter-spacing:.03em;box-shadow:0 3px 10px rgba(23,37,84,.25),inset 0 1px 0 rgba(255,255,255,.2)}
+.admin-tag .crown{font-size:12px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.admin-tag .role-pill{background:#ffe600;color:#172554;padding:1px 6px;border-radius:99px;font-size:8.5px;font-weight:950;text-transform:uppercase;letter-spacing:.06em;margin-left:2px}
+.admin-tag .verified-check{display:inline-grid;place-items:center;width:13px;height:13px;border-radius:50%;background:#16a34a;color:#fff;font-size:8.5px;font-weight:900}
+.driver-plat-tag{font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:99px}
+.driver-plat-tag.ml{background:#fff59d;color:#172554;border:1px solid #e6d000}
+.driver-plat-tag.shopee{background:#ffe8e3;color:#d63818;border:1px solid #f7c2b7}
+.driver-plat-tag.ambas{background:#e2e8f0;color:#334155}
+
 @media(max-width:760px){.brand{align-items:flex-start;flex-direction:column}.marketplaces{width:100%}.s8,.s6,.s4,.s3{grid-column:span 12}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.history-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.platform-compare{grid-template-columns:1fr}.card{padding:16px}}@media(max-width:430px){.wrap{padding-left:12px;padding-right:12px}.top{padding:16px 14px 20px}.market-logo{flex:1;justify-content:center;padding:8px 7px;font-size:11px}.market-logo svg,.market-logo img{width:30px;height:30px}.tab{padding:8px 11px;gap:8px}.nav-icon{width:30px;height:30px;font-size:15px}.tab b{font-size:12px}.tab small{font-size:9px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.kpi strong{font-size:18px}.developer-top{display:block;margin:4px 0 0}}
 </style>
 </head>
@@ -85,7 +115,7 @@
 <div class="marketplaces" aria-label="Selecionar Plataforma">
 <button type="button" class="market-logo selected" id="btnPlatformML" data-platform="Mercado Livre" title="Selecionar Mercado Livre"><img src="https://upload.wikimedia.org/wikipedia/pt/0/04/Logotipo_MercadoLivre.png" alt="Logo Oficial Mercado Livre" onerror="this.onerror=null;this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.73/mercadolibre/logo__small@2x.png'"><span>Mercado Livre</span></button>
 <button type="button" class="market-logo shopee" id="btnPlatformShopee" data-platform="Shopee" title="Selecionar Shopee"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/512px-Shopee_logo.svg.png" alt="Logo Oficial Shopee" onerror="this.onerror=null;this.src='https://cdn.worldvectorlogo.com/logos/shopee-1.svg'"><span>Shopee</span></button></div></div></header>
-<main class="wrap"><nav class="tabs" aria-label="Navegação principal"><button class="tab active" data-page="calc"><span class="nav-icon">⌁</span><span><b>Calculadora</b><small>Simular uma rota</small></span></button><button class="tab" data-page="history"><span class="nav-icon">◷</span><span><b>Histórico</b><small>Rotas registradas</small></span></button><button class="tab" data-page="reports"><span class="nav-icon">▥</span><span><b>Relatórios</b><small>Visão financeira</small></span></button><button class="tab" data-page="settings"><span class="nav-icon">⚙</span><span><b>Configurações</b><small>Custos e veículo</small></span></button><button class="tab" data-page="ai-support"><span class="nav-icon">✦</span><span><b>Suporte IA</b><small>Abraão Gessé</small></span></button></nav>
+<main class="wrap"><nav class="tabs" aria-label="Navegação principal"><button class="tab active" data-page="calc"><span class="nav-icon">⌁</span><span><b>Calculadora</b><small>Simular uma rota</small></span></button><button class="tab" data-page="history"><span class="nav-icon">◷</span><span><b>Histórico</b><small>Rotas registradas</small></span></button><button class="tab" data-page="reports"><span class="nav-icon">▥</span><span><b>Relatórios</b><small>Visão financeira</small></span></button><button class="tab" data-page="general-chat"><span class="nav-icon">💬</span><span><b>Chat Geral</b><small>Motoristas ao vivo</small></span></button><button class="tab" data-page="settings"><span class="nav-icon">⚙</span><span><b>Configurações</b><small>Custos e veículo</small></span></button><button class="tab" data-page="ai-support"><span class="nav-icon">✦</span><span><b>Suporte IA</b><small>Abraão Gessé</small></span></button></nav>
 <section class="page active" id="calc"><div class="grid"><div class="card s8"><div class="resulthead" style="margin-bottom:4px"><h2 style="margin:0">Nova análise de rota</h2><span class="tag" id="selectedPlatformTag">Plataforma: Mercado Livre</span></div><p class="sub">Selecione a plataforma no topo e preencha os dados reais ou estimados.</p><div class="fields">
 <div class="field"><label for="km">Quilometragem total (km)</label><input id="km" type="number" min="0" step=".1" placeholder="Ex.: 65"></div>
 <div class="field"><label for="liters">Combustível consumido (litros)</label><input id="liters" type="number" min="0" step=".01" placeholder="Ex.: 6,5"></div>
@@ -145,6 +175,47 @@
  <div class="winner-banner" id="repWinnerInsight">Registre rotas nas plataformas para visualizar o comparativo automático de rentabilidade.</div>
 </div>
 <div class="card s6"><h3>Meta diária</h3><div class="kpi"><small>Meta configurada</small><strong id="repGoal">R$ 80,00</strong></div><p class="hint">A meta considera o lucro líquido das rotas com pagamento bruto informado.</p></div><div class="card s6"><h3>Backup dos dados</h3><p class="sub">Exporte um arquivo JSON para guardar seus registros completos (incluindo todo o histórico diário) e importe-o para restaurar neste ou em outro navegador.</p><div class="actions"><button class="btn" id="backupBtn">Baixar backup completo</button><label class="btn light" for="restoreFile">Importar backup</label><input id="restoreFile" type="file" accept="application/json" hidden></div></div></div></section>
+
+<section class="page" id="general-chat">
+<div class="card">
+<div class="resulthead" style="margin-bottom:4px">
+ <div><h2 style="margin:0">Chat Geral da Comunidade</h2><p class="sub" style="margin:2px 0 0">Converse em tempo real com outros motoristas do Mercado Livre e Shopee conectados no painel.</p></div>
+ <span class="tag green" id="gcStatusBadge"><span class="gc-online-dot" style="margin-right:5px"></span>Ao vivo</span>
+</div>
+
+<div id="gcLoginView" class="gc-login-box">
+ <h3>Entrar no Chat Geral</h3>
+ <p>Informe seu nome ou apelido de motorista para visualizar e enviar mensagens para todos os participantes online.</p>
+ <form id="gcJoinForm" class="gc-login-fields">
+  <div>
+   <label for="gcNameInput" style="display:block;margin-bottom:5px">Seu Nome ou Apelido</label>
+   <input type="text" id="gcNameInput" placeholder="Ex.: Carlos • Fiorino" maxlength="32" autocomplete="off" required>
+  </div>
+  <div>
+   <label for="gcPlatSelect" style="display:block;margin-bottom:5px">Operação Principal</label>
+   <select id="gcPlatSelect">
+    <option value="Mercado Livre">Mercado Livre (Envios Extras)</option>
+    <option value="Shopee">Shopee Express</option>
+    <option value="Ambas">Ambas as Plataformas</option>
+   </select>
+  </div>
+  <button type="submit" class="btn" style="width:100%;margin-top:4px;padding:13px">Entrar na Sala Geral</button>
+ </form>
+</div>
+
+<div id="gcRoomView" class="hidden">
+ <div class="gc-user-bar">
+  <div class="gc-user-info" id="gcCurrentUserBadge"></div>
+  <button type="button" class="btn light" id="gcLeaveBtn" style="padding:6px 11px;font-size:11px">Alterar Nome / Sair</button>
+ </div>
+ <div class="gc-feed" id="gcFeed"></div>
+ <form class="chat-form" id="gcMsgForm">
+  <input type="text" id="gcMsgInput" placeholder="Escreva uma mensagem para todos os motoristas online..." maxlength="400" autocomplete="off" required>
+  <button type="submit" class="btn" id="gcSendBtn">Enviar</button>
+ </form>
+</div>
+</div>
+</section>
 
 <section class="page" id="settings"><div class="grid"><div class="card s6"><h2>Configurações do veículo</h2><p class="sub">Valores usados automaticamente em cada análise.</p><div class="fields"><div class="field full"><label for="maintenance">Reserva de manutenção (R$/km)</label><input id="maintenance" type="number" min="0" step=".01"></div><div class="field full"><label for="defaultFuel">Preço padrão da gasolina (R$/L)</label><input id="defaultFuel" type="number" min="0" step=".01"></div><div class="field full"><label for="defaultConsumption">Consumo padrão do veículo (km/L)</label><input id="defaultConsumption" type="number" min="0.1" step=".1"></div><div class="field full"><label for="dailyGoal">Meta diária de lucro líquido (R$)</label><input id="dailyGoal" type="number" min="0" step=".01"></div></div><div class="actions"><button class="btn" id="saveSettings">Salvar configurações</button></div></div><div class="card s6"><h2>Veículo cadastrado</h2><p><b>Fiat Uno Vivace 1.0 2012/2013</b></p><p class="sub">Ajuste o consumo padrão conforme a média real obtida com seu veículo. Esse valor pode ser ligado ou desligado individualmente na calculadora.</p><div class="notice">A taxa de manutenção é independente do combustível. O consumo padrão estima os litros pela distância ÷ km/L; com a opção desligada, a calculadora usa os litros informados manualmente.<br><br><b>Suporte IA Ativo:</b> O assistente <b>Abraão Gessé</b> funciona automaticamente sem exigir chaves ou configurações extras.</div></div><div class="card s12"><h3>Gerenciamento dos dados</h3><p class="sub">Os registros ficam armazenados localmente no navegador deste aparelho. Faça backups periódicos.</p><button class="btn red" id="deleteAll">Apagar todo o histórico</button></div></div></section>
 
@@ -566,5 +637,214 @@ document.querySelectorAll('#chatSuggestions .chip').forEach(btn=>{
  btn.addEventListener('click',()=>askAbraaoAI(btn.dataset.prompt));
 });
 
+// ================= CHAT GERAL EM TEMPO REAL + CHAVE SECRETA ADMINISTRADOR =================
+const ADMIN_SECRET_CODE='544111';
+const gcLoginView=$('gcLoginView'),gcRoomView=$('gcRoomView'),gcJoinForm=$('gcJoinForm');
+const gcNameInput=$('gcNameInput'),gcPlatSelect=$('gcPlatSelect'),gcCurrentUserBadge=$('gcCurrentUserBadge');
+const gcFeed=$('gcFeed'),gcMsgForm=$('gcMsgForm'),gcMsgInput=$('gcMsgInput'),gcLeaveBtn=$('gcLeaveBtn');
+
+let gcUser=readJSON('afe_gc_user',null);
+let gcClientId=readJSON('afe_gc_client_id',null);
+if(!gcClientId){
+ gcClientId=(crypto.randomUUID?crypto.randomUUID():'drv-'+Date.now()+'-'+Math.random().toString(36).slice(2,7));
+ try{localStorage.setItem('afe_gc_client_id',JSON.stringify(gcClientId));}catch{}
+}
+let gcMessages=[];
+let gcCloudReady=false;
+
+function escapeHtml(str){
+ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function buildAdminTagHtml(){
+ return `<span class="admin-tag" title="Administrador Oficial e Moderador do Sistema">
+  <span class="crown">👑</span>
+  <span>Abraão Gessé</span>
+  <span class="verified-check">✓</span>
+  <span class="role-pill">ADM • MODERADOR</span>
+ </span>`;
+}
+
+function updateGcHeader(){
+ if(!gcUser)return;
+ if(gcUser.isAdmin){
+  gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: ${buildAdminTagHtml()}`;
+ }else{
+  const platCls=gcUser.platform==='Shopee'?'shopee':(gcUser.platform==='Ambas'?'ambas':'ml');
+  gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: <b>${escapeHtml(gcUser.name)}</b> <span class="driver-plat-tag ${platCls}">${escapeHtml(gcUser.platform)}</span>`;
+ }
+}
+
+function renderGcMessages(){
+ const wasNearBottom=(gcFeed.scrollHeight-gcFeed.scrollTop-gcFeed.clientHeight)<80;
+ gcFeed.replaceChildren();
+ if(!gcMessages.length){
+  const empty=document.createElement('div');
+  empty.className='empty';
+  empty.innerHTML='Nenhuma mensagem enviada ainda.<br>Seja o primeiro a mandar um alô para a galera da rota!';
+  gcFeed.appendChild(empty);
+  return;
+ }
+ gcMessages.forEach(m=>{
+  const isMine=m.clientId===gcClientId;
+  const item=document.createElement('div');
+  item.className='gc-msg'+(isMine?' mine':'')+(m.isAdmin?' is-admin':'');
+  const timeStr=m.ts?new Date(m.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
+  let authorHtml='';
+  if(m.isAdmin){
+   authorHtml=buildAdminTagHtml();
+  }else{
+   const platCls=m.platform==='Shopee'?'shopee':(m.platform==='Ambas'?'ambas':'ml');
+   authorHtml=`<span class="gc-author">${escapeHtml(m.name)}</span><span class="driver-plat-tag ${platCls}">${escapeHtml(m.platform||'Mercado Livre')}</span>`;
+  }
+  item.innerHTML=`<div class="gc-msg-head">${authorHtml}<span class="gc-time">${timeStr}</span></div><div class="gc-msg-text">${escapeHtml(m.text)}</div>`;
+  gcFeed.appendChild(item);
+ });
+ if(wasNearBottom)gcFeed.scrollTop=gcFeed.scrollHeight;
+}
+
+function refreshGcView(){
+ if(gcUser&&gcUser.name){
+  gcLoginView.classList.add('hidden');
+  gcRoomView.classList.remove('hidden');
+  updateGcHeader();
+  renderGcMessages();
+  gcFeed.scrollTop=gcFeed.scrollHeight;
+ }else{
+  gcRoomView.classList.add('hidden');
+  gcLoginView.classList.remove('hidden');
+ }
+}
+
+gcJoinForm.addEventListener('submit',e=>{
+ e.preventDefault();
+ const rawName=gcNameInput.value.trim();
+ if(!rawName)return;
+ if(rawName===ADMIN_SECRET_CODE){
+  gcUser={name:'Abraão Gessé',isAdmin:true,platform:'Administração'};
+  try{localStorage.setItem('afe_gc_user',JSON.stringify(gcUser));}catch{}
+  gcNameInput.value='';
+  refreshGcView();
+  showToast('Acesso Moderador Liberado','Bem-vindo, Abraão Gessé! Sua TAG oficial de Administrador e Moderador está ativa.','both');
+ }else{
+  gcUser={name:rawName,isAdmin:false,platform:gcPlatSelect.value||'Mercado Livre'};
+  try{localStorage.setItem('afe_gc_user',JSON.stringify(gcUser));}catch{}
+  gcNameInput.value='';
+  refreshGcView();
+  showToast('Conectado ao Chat Geral',`Você entrou na sala como ${gcUser.name}.`,gcUser.platform==='Shopee'?'Shopee':'Mercado Livre');
+ }
+});
+
+gcLeaveBtn.addEventListener('click',()=>{
+ gcUser=null;
+ try{localStorage.removeItem('afe_gc_user');}catch{}
+ refreshGcView();
+});
+
+async function sendGcMessage(text){
+ const clean=text.trim();
+ if(!clean||!gcUser)return;
+ const msgObj={
+  id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2,6)),
+  clientId:gcClientId,
+  name:gcUser.isAdmin?'Abraão Gessé':gcUser.name,
+  isAdmin:Boolean(gcUser.isAdmin),
+  platform:gcUser.platform||'Mercado Livre',
+  text:clean,
+  ts:Date.now()
+ };
+ gcMessages.push(msgObj);
+ if(gcMessages.length>120)gcMessages=gcMessages.slice(-120);
+ try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
+ renderGcMessages();
+ gcFeed.scrollTop=gcFeed.scrollHeight;
+
+ if(gcCloudReady&&window._gcPushCloud){
+  try{await window._gcPushCloud(msgObj);}catch{}
+ }
+}
+
+gcMsgForm.addEventListener('submit',e=>{
+ e.preventDefault();
+ const txt=gcMsgInput.value;
+ gcMsgInput.value='';
+ sendGcMessage(txt);
+});
+
+// Carrega cache local imediato e sincroniza entre abas
+gcMessages=Array.isArray(readJSON('afe_gc_cache',[]))?readJSON('afe_gc_cache',[]):[];
+window.addEventListener('storage',e=>{
+ if(e.key==='afe_gc_cache'&&e.newValue){
+  try{gcMessages=JSON.parse(e.newValue)||[];renderGcMessages();}catch{}
+ }
+});
+refreshGcView();
+
 renderSettings();renderAll();
-</script></body></html>
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+(async function initRealtimeCommunityChat(){
+ try{
+  if(typeof __firebase_config==='undefined'||!__firebase_config)return;
+  const firebaseConfig=JSON.parse(__firebase_config);
+  const appId=typeof __app_id!=='undefined'?__app_id:'envios-extras-chat';
+  const app=initializeApp(firebaseConfig);
+  const auth=getAuth(app);
+  const db=getFirestore(app);
+
+  if(typeof __initial_auth_token!=='undefined'&&__initial_auth_token){
+   await signInWithCustomToken(auth,__initial_auth_token);
+  }else{
+   await signInAnonymously(auth);
+  }
+  const user=auth.currentUser;
+  if(!user)return;
+
+  const chatCol=collection(db,'artifacts',appId,'public','data','general_chat_messages');
+  gcCloudReady=true;
+
+  window._gcPushCloud=async(msgObj)=>{
+   await addDoc(chatCol,{
+    msgId:msgObj.id,
+    clientId:msgObj.clientId,
+    name:msgObj.name,
+    isAdmin:Boolean(msgObj.isAdmin),
+    platform:msgObj.platform,
+    text:msgObj.text,
+    ts:msgObj.ts
+   });
+  };
+
+  onSnapshot(chatCol,(snap)=>{
+   const list=[];
+   snap.forEach(docSnap=>{
+    const d=docSnap.data();
+    if(d&&d.text){
+     list.push({
+      id:d.msgId||docSnap.id,
+      clientId:d.clientId||'',
+      name:d.name||'Motorista',
+      isAdmin:Boolean(d.isAdmin),
+      platform:d.platform||'Mercado Livre',
+      text:d.text,
+      ts:Number(d.ts||0)
+     });
+    }
+   });
+   list.sort((a,b)=>a.ts-b.ts);
+   gcMessages=list.slice(-120);
+   try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
+   renderGcMessages();
+  },(err)=>{
+   console.debug('Chat sync standby:',err);
+  });
+ }catch(e){
+  console.debug('Chat local mode:',e);
+ }
+})();
+</script>
+</body></html>
