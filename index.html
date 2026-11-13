@@ -109,6 +109,10 @@
 
 @media(max-width:760px){.brand{align-items:flex-start;flex-direction:column}.marketplaces{width:100%}.s8,.s6,.s4,.s3{grid-column:span 12}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.history-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.platform-compare{grid-template-columns:1fr}.card{padding:16px}}@media(max-width:430px){.wrap{padding-left:12px;padding-right:12px}.top{padding:16px 14px 20px}.market-logo{flex:1;justify-content:center;padding:8px 7px;font-size:11px}.market-logo svg,.market-logo img{width:30px;height:30px}.tab{padding:8px 11px;gap:8px}.nav-icon{width:30px;height:30px;font-size:15px}.tab b{font-size:12px}.tab small{font-size:9px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.kpi strong{font-size:18px}.developer-top{display:block;margin:4px 0 0}}
 </style>
+
+<!-- Firebase App SDK & Realtime Database SDK (Compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 </head>
 <body>
 <header class="top"><div class="brand"><div class="brand-copy"><span class="eyebrow">PAINEL DE GESTÃO • ENTREGAS <span class="developer-top">DESENVOLVIDO POR ABRAÃO GESSÉ</span></span><h1>Análise Financeira <em>Envios Extras</em></h1><p>Controle seus custos, acompanhe seus resultados e saiba quanto realmente sobra em cada rota.</p></div>
@@ -174,7 +178,7 @@
  </div>
  <div class="winner-banner" id="repWinnerInsight">Registre rotas nas plataformas para visualizar o comparativo automático de rentabilidade.</div>
 </div>
-<div class="card s6"><h3>Meta diária</h3><div class="kpi"><small>Meta configurada</small><strong id="repGoal">R$ 80,00</strong></div><p class="hint">A meta considera o lucro líquido das rotas com pagamento bruto informado.</p></div><div class="card s6"><h3>Backup dos dados</h3><p class="sub">Exporte um arquivo JSON para guardar seus registros completos (incluindo todo el histórico diário) e importe-o para restaurar neste ou em outro navegador.</p><div class="actions"><button class="btn" id="backupBtn">Baixar backup completo</button><label class="btn light" for="restoreFile">Importar backup</label><input id="restoreFile" type="file" accept="application/json" hidden></div></div></div></section>
+<div class="card s6"><h3>Meta diária</h3><div class="kpi"><small>Meta configurada</small><strong id="repGoal">R$ 80,00</strong></div><p class="hint">A meta considera o lucro líquido das rotas com pagamento bruto informado.</p></div><div class="card s6"><h3>Backup dos dados</h3><p class="sub">Exporte um arquivo JSON para guardar seus registros completos (incluindo todo o histórico diário) e importe-o para restaurar neste ou em outro navegador.</p><div class="actions"><button class="btn" id="backupBtn">Baixar backup completo</button><label class="btn light" for="restoreFile">Importar backup</label><input id="restoreFile" type="file" accept="application/json" hidden></div></div></div></section>
 
 <section class="page" id="general-chat">
 <div class="card">
@@ -641,12 +645,23 @@ document.querySelectorAll('#chatSuggestions .chip').forEach(btn=>{
  btn.addEventListener('click',()=>askAbraaoAI(btn.dataset.prompt));
 });
 
-// ================= CHAT GERAL EM TEMPO REAL VIA RELAY PÚBLICO EM NUVEM (SEM FIREBASE, SEM CORS) =================
-const ADMIN_SECRET_CODE='544111';
-const CLOUD_RELAY_ENDPOINT='https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/envios-extras-hub-v6/global_room_state';
-const CLOUD_RELAY_GET='https://keyvalue.immanuel.co/api/KeyVal/GetValue/envios-extras-hub-v6/global_room_state';
-const FALLBACK_JSONBIN_URL='https://jsonbin.org/abraaogesse/envios_extras_chat_v6';
+// ================= FIREBASE REALTIME DATABASE CONFIGURATION & CHAT GERAL =================
+const firebaseConfig = {
+  apiKey: "AIzaSyBuH85I4duHVAufndL-UUj8MLhtXt8-ixA",
+  authDomain: "envios-pro.firebaseapp.com",
+  databaseURL: "https://envios-pro-default-rtdb.firebaseio.com",
+  projectId: "envios-pro",
+  storageBucket: "envios-pro.firebasestorage.app",
+  messagingSenderId: "297804246599",
+  appId: "1:297804246599:web:230b705cba751db3c88b62"
+};
 
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const dbRefMessages = db.ref('envios_extras_chat/messages');
+const dbRefPeers = db.ref('envios_extras_chat/peers');
+
+const ADMIN_SECRET_CODE='544111';
 const gcLoginView=$('gcLoginView'),gcRoomView=$('gcRoomView'),gcJoinForm=$('gcJoinForm');
 const gcNameInput=$('gcNameInput'),gcPlatSelect=$('gcPlatSelect'),gcCurrentUserBadge=$('gcCurrentUserBadge');
 const gcFeed=$('gcFeed'),gcMsgForm=$('gcMsgForm'),gcMsgInput=$('gcMsgInput'),gcLeaveBtn=$('gcLeaveBtn');
@@ -658,8 +673,6 @@ if(!gcClientId){
  try{localStorage.setItem('afe_gc_client_id',JSON.stringify(gcClientId));}catch{}
 }
 let gcMessages=[];
-let gcOnlinePeers={};
-let isSyncingCloud=false;
 
 function escapeHtml(str){
  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -682,23 +695,6 @@ function updateGcHeader(){
   const platCls=gcUser.platform==='Shopee'?'shopee':(gcUser.platform==='Ambas'?'ambas':'ml');
   gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: <b>${escapeHtml(gcUser.name)}</b> <span class="driver-plat-tag ${platCls}">${escapeHtml(gcUser.platform)}</span>`;
  }
-}
-
-function updateOnlineCounterUI(){
- const now=Date.now();
- let active=0;
- Object.keys(gcOnlinePeers).forEach(pid=>{
-  if((now-Number(gcOnlinePeers[pid]||0))<35000){
-   active++;
-  }else{
-   delete gcOnlinePeers[pid];
-  }
- });
- const totalOnline=Math.max(1,active);
- const countEl=$('gcOnlineCount');
- const roomLabel=$('gcRoomOnlineLabel');
- if(countEl)countEl.textContent=totalOnline;
- if(roomLabel)roomLabel.textContent=`🟢 ${totalOnline} motorista(s) online`;
 }
 
 function renderGcMessages(){
@@ -742,100 +738,49 @@ function refreshGcView(){
  }
 }
 
-async function readCloudState(){
- try{
-  const res=await fetch(CLOUD_RELAY_GET,{method:'GET',cache:'no-store'});
-  if(res.ok){
-   let raw=await res.text();
-   if(raw){
-    let parsed=JSON.parse(raw);
-    if(typeof parsed==='string')parsed=JSON.parse(parsed);
-    if(parsed&&typeof parsed==='object'&&Array.isArray(parsed.messages)){
-     return parsed;
-    }
-   }
-  }
- }catch(e){}
+// Sincronização em tempo real das mensagens via Firebase Realtime Database
+dbRefMessages.limitToLast(150).on('value', snapshot => {
+ const val = snapshot.val() || {};
+ gcMessages = Object.values(val).sort((a,b)=>Number(a.ts||0)-Number(b.ts||0));
+ try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
+ renderGcMessages();
+});
 
- try{
-  const res2=await fetch(FALLBACK_JSONBIN_URL,{headers:{'Accept':'application/json'},cache:'no-store'});
-  if(res2.ok){
-   const data2=await res2.json();
-   if(data2&&Array.isArray(data2.messages)){
-    return data2;
-   }
-  }
- }catch(e){}
+// Gestão de presença em tempo real (Motoristas online)
+const myPeerRef = dbRefPeers.child(gcClientId);
+myPeerRef.onDisconnect().remove();
 
- return null;
-}
-
-async function writeCloudState(stateObj){
- const encoded=encodeURIComponent(JSON.stringify(stateObj));
- try{
-  await fetch(`${CLOUD_RELAY_ENDPOINT}/${encoded}`,{method:'POST'});
- }catch(e){}
-
- try{
-  await fetch(FALLBACK_JSONBIN_URL,{
-   method:'PUT',
-   headers:{'Content-Type':'application/json'},
-   body:JSON.stringify(stateObj)
+function updatePresenceHeartbeat(){
+ if(gcUser){
+  myPeerRef.set({
+   name: gcUser.isAdmin ? (gcUser.adminCustomName || 'Abraão Gessé') : gcUser.name,
+   platform: gcUser.platform || 'Mercado Livre',
+   ts: firebase.database.ServerValue.TIMESTAMP
   });
- }catch(e){}
-}
-
-function mergeMessages(localList,cloudList){
- const map=new Map();
- [...(localList||[]),...(cloudList||[])].forEach(m=>{
-  if(m&&m.id&&m.text){
-   map.set(m.id,m);
-  }
- });
- return Array.from(map.values()).sort((a,b)=>Number(a.ts||0)-Number(b.ts||0)).slice(-150);
-}
-
-async function syncCommunityCloud(pushHeartbeat=false){
- if(isSyncingCloud)return;
- isSyncingCloud=true;
- try{
-  const remote=await readCloudState();
-  const now=Date.now();
-
-  if(remote){
-   const merged=mergeMessages(gcMessages,remote.messages);
-   if(merged.length!==gcMessages.length || (merged.length>0 && gcMessages.length>0 && merged[merged.length-1].id!==gcMessages[gcMessages.length-1].id)){
-    gcMessages=merged;
-    try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
-    renderGcMessages();
-   }
-   if(remote.peers&&typeof remote.peers==='object'){
-    gcOnlinePeers={...remote.peers,...gcOnlinePeers};
-   }
-  }
-
-  gcOnlinePeers[gcClientId]=now;
-  Object.keys(gcOnlinePeers).forEach(k=>{
-   if((now-Number(gcOnlinePeers[k]||0))>35000){
-    delete gcOnlinePeers[k];
-   }
-  });
-  updateOnlineCounterUI();
-
-  if(pushHeartbeat){
-   await writeCloudState({
-    messages:gcMessages,
-    peers:gcOnlinePeers,
-    updatedAt:now
-   });
-  }
- }catch(e){
- }finally{
-  isSyncingCloud=false;
  }
 }
 
-gcJoinForm.addEventListener('submit',async e=>{
+setInterval(updatePresenceHeartbeat, 10000);
+
+dbRefPeers.on('value', snapshot => {
+ const peers = snapshot.val() || {};
+ const now = Date.now();
+ let activeCount = 0;
+ Object.keys(peers).forEach(pid => {
+  const pData = peers[pid];
+  const pTime = typeof pData === 'object' && pData !== null ? (pData.ts || 0) : Number(pData || 0);
+  if(!pTime || (now - pTime) < 35000) {
+   activeCount++;
+  }
+ });
+ const totalOnline = Math.max(1, activeCount);
+ const countEl = $('gcOnlineCount');
+ const roomLabel = $('gcRoomOnlineLabel');
+ if(countEl) countEl.textContent = totalOnline;
+ if(roomLabel) roomLabel.textContent = `🟢 ${totalOnline} motorista(s) online`;
+});
+
+gcJoinForm.addEventListener('submit', async e=>{
  e.preventDefault();
  const rawInput=gcNameInput.value.trim();
  if(!rawInput)return;
@@ -855,10 +800,12 @@ gcJoinForm.addEventListener('submit',async e=>{
   refreshGcView();
   showToast('Conectado ao Chat Geral',`Você entrou na sala como ${gcUser.name}.`,gcUser.platform==='Shopee'?'Shopee':'Mercado Livre');
  }
- await syncCommunityCloud(true);
+ updatePresenceHeartbeat();
+ myPeerRef.onDisconnect().remove();
 });
 
-gcLeaveBtn.addEventListener('click',()=>{
+gcLeaveBtn.addEventListener('click', async ()=>{
+ await myPeerRef.remove();
  gcUser=null;
  try{localStorage.removeItem('afe_gc_user');}catch{}
  refreshGcView();
@@ -867,40 +814,18 @@ gcLeaveBtn.addEventListener('click',()=>{
 async function sendGcMessage(text){
  const clean=text.trim();
  if(!clean||!gcUser)return;
+ const newMsgRef = dbRefMessages.push();
  const msgObj={
-  id:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2,6)),
-  clientId:gcClientId,
-  name:gcUser.isAdmin?(gcUser.adminCustomName||'Abraão Gessé'):gcUser.name,
-  isAdmin:Boolean(gcUser.isAdmin),
-  adminCustomName:gcUser.adminCustomName||'',
-  platform:gcUser.platform||'Mercado Livre',
-  text:clean,
-  ts:Date.now()
+  id: newMsgRef.key,
+  clientId: gcClientId,
+  name: gcUser.isAdmin?(gcUser.adminCustomName||'Abraão Gessé'):gcUser.name,
+  isAdmin: Boolean(gcUser.isAdmin),
+  adminCustomName: gcUser.adminCustomName||'',
+  platform: gcUser.platform||'Mercado Livre',
+  text: clean,
+  ts: firebase.database.ServerValue.TIMESTAMP
  };
-
- gcMessages=mergeMessages(gcMessages,[msgObj]);
- try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
- renderGcMessages();
- gcFeed.scrollTop=gcFeed.scrollHeight;
-
- try{
-  const latestRemote=await readCloudState();
-  if(latestRemote&&Array.isArray(latestRemote.messages)){
-   gcMessages=mergeMessages(gcMessages,latestRemote.messages);
-  }
-  if(latestRemote&&latestRemote.peers){
-   gcOnlinePeers={...latestRemote.peers,...gcOnlinePeers};
-  }
-  gcOnlinePeers[gcClientId]=Date.now();
-  await writeCloudState({
-   messages:gcMessages,
-   peers:gcOnlinePeers,
-   updatedAt:Date.now()
-  });
-  renderGcMessages();
- }catch(err){
-  console.debug('Cloud push retry:',err);
- }
+ await newMsgRef.set(msgObj);
 }
 
 gcMsgForm.addEventListener('submit',e=>{
@@ -910,28 +835,9 @@ gcMsgForm.addEventListener('submit',e=>{
  sendGcMessage(txt);
 });
 
-window.addEventListener('storage',e=>{
- if(e.key==='afe_gc_cache'&&e.newValue){
-  try{
-   const updated=JSON.parse(e.newValue);
-   if(Array.isArray(updated)){
-    gcMessages=mergeMessages(gcMessages,updated);
-    renderGcMessages();
-   }
-  }catch{}
- }
-});
-
 gcMessages=Array.isArray(readJSON('afe_gc_cache',[]))?readJSON('afe_gc_cache',[]):[];
 refreshGcView();
-
-let pollTick=0;
-syncCommunityCloud(true);
-setInterval(()=>{
- pollTick++;
- const sendHeartbeat=(pollTick%4===0);
- syncCommunityCloud(sendHeartbeat);
-},2500);
+if(gcUser) updatePresenceHeartbeat();
 
 renderSettings();renderAll();
 </script>
