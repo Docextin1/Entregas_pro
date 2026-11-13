@@ -107,6 +107,63 @@
 .driver-plat-tag.shopee{background:#ffe8e3;color:#d63818;border:1px solid #f7c2b7}
 .driver-plat-tag.ambas{background:#e2e8f0;color:#334155}
 
+/* Painel Exclusivo de Moderação & Administração (/admin544111) */
+.admin-toggle-btn{background:linear-gradient(135deg,#172554 0%,#253b80 100%);color:#ffe600;border:1.5px solid #f59e0b;border-radius:10px;padding:6px 12px;font-size:11px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(23,37,84,.22);transition:.15s}
+.admin-toggle-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.admin-panel{background:linear-gradient(145deg,#0f172a 0%,#172554 100%);color:#f8fafc;border:1.5px solid #eab308;border-radius:16px;padding:16px 18px;margin-bottom:14px;box-shadow:0 12px 30px rgba(15,23,42,.22)}
+.admin-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:14px}
+.admin-panel-head h3{margin:0;color:#ffe600;font-size:15px;display:flex;align-items:center;gap:7px}
+.admin-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}
+.admin-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:12px 14px}
+.admin-box h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#fde047;font-weight:900}
+.admin-switch-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.1);font-size:12px;font-weight:700}
+.admin-switch-row:last-child{border-bottom:0}
+.admin-switch-row input[type="checkbox"]{width:18px;height:18px;accent-color:#ffe600;cursor:pointer}
+.admin-pin-form{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.admin-pin-form input{flex:1;min-width:180px;padding:9px 11px;border-radius:9px;border:1px solid rgba(255,255,255,.2);background:rgba(15,23,42,.7);color:#fff;font-size:12px;outline:none}
+.admin-pin-form input:focus{border-color:#ffe600}
+.peer-list{display:flex;flex-direction:column;gap:7px;max-height:220px;overflow-y:auto;padding-right:4px}
+.peer-item{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;background:rgba(15,23,42,.55);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;font-size:12px}
+.peer-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.peer-actions{display:flex;align-items:center;gap:5px}
+.peer-btn{border:0;border-radius:7px;padding:4px 8px;font-size:10.5px;font-weight:850;cursor:pointer;transition:.15s}
+.peer-btn.mute{background:#fef3c7;color:#92400e}
+.peer-btn.mute.active{background:#f59e0b;color:#fff}
+.peer-btn.ban{background:#fee2e2;color:#991b1b}
+.peer-btn.ban.active{background:#dc2626;color:#fff}
+.msg-del-btn{background:transparent;border:0;color:#94a3b8;cursor:pointer;font-size:12px;padding:2px 5px;border-radius:6px;margin-left:4px;transition:.15s}
+.msg-del-btn:hover{background:#fee2e2;color:#dc2626}
+
+/* Banner de Aviso Fixado & Alertas de Moderação */
+.gc-pinned-banner{background:linear-gradient(135deg,#172554 0%,#1e3a8a 100%);color:#fff;border:1.5px solid #f59e0b;border-radius:12px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px;box-shadow:0 6px 16px rgba(23,37,84,.16)}
+.gc-pinned-icon{font-size:18px;line-height:1;flex:none}
+.gc-pinned-body{flex:1;min-width:0}
+.gc-pinned-title{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:#ffe600;margin-bottom:2px}
+.gc-pinned-text{font-size:12.5px;font-weight:600;line-height:1.4;color:#f8fafc;word-wrap:break-word}
+.gc-status-notice{background:#fff1f2;border:1.5px solid #fecdd3;color:#9f1239;border-radius:12px;padding:11px 14px;font-size:12px;font-weight:800;text-align:center;margin-bottom:10px}
+.gc-banned-screen{background:linear-gradient(145deg,#fff1f2 0%,#ffe4e6 100%);border:2px solid #fda4af;border-radius:16px;padding:28px 20px;text-align:center;margin:12px 0}
+.gc-banned-screen h3{color:#9f1239;font-size:17px;margin:0 0 8px}
+.gc-banned-screen p{color:#881337;font-size:13px;margin:0;line-height:1.5}
+
+/* Gaveta de Stickers / Figurinhas Animadas Estilo WhatsApp */
+.sticker-wrapper{position:relative}
+.sticker-toggle-btn{background:#eef1f8;color:var(--blue);border:1px solid #dce2ef;border-radius:12px;width:44px;height:44px;display:grid;place-items:center;font-size:20px;cursor:pointer;flex:none;transition:.15s}
+.sticker-toggle-btn:hover,.sticker-toggle-btn.active{background:var(--yellow);color:#172554;border-color:#e6cf00}
+.sticker-toggle-btn:disabled{opacity:.45;cursor:not-allowed}
+.sticker-drawer{position:absolute;bottom:54px;left:0;width:min(360px,calc(100vw - 44px));background:#fff;border:1.5px solid #cbd5e1;border-radius:16px;box-shadow:0 16px 38px rgba(15,23,42,.22);z-index:50;overflow:hidden;animation:appear .16s ease}
+.sticker-cats{display:flex;background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:6px;gap:4px;overflow-x:auto}
+.sticker-cat-btn{border:0;background:transparent;border-radius:9px;padding:6px 10px;font-size:11px;font-weight:800;color:#475569;cursor:pointer;white-space:nowrap;transition:.15s}
+.sticker-cat-btn.active{background:#172554;color:#ffe600}
+.sticker-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:10px;max-height:220px;overflow-y:auto;background:#fbfcfe}
+.sticker-item-btn{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:.15s}
+.sticker-item-btn:hover{background:#fffbeb;border-color:#f59e0b;transform:scale(1.06)}
+.sticker-item-btn img{width:46px;height:46px;object-fit:contain;display:block}
+.sticker-item-btn span{font-size:9px;font-weight:700;color:#64748b;text-align:center;line-height:1.1}
+.gc-msg.sticker-msg{background:transparent!important;border:0!important;box-shadow:none!important;padding:4px 6px}
+.gc-msg.sticker-msg .gc-msg-head{background:rgba(255,255,255,.92);padding:3px 9px;border-radius:99px;border:1px solid rgba(15,23,42,.08);margin-bottom:5px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.gc-msg.sticker-msg.is-admin .gc-msg-head{background:linear-gradient(135deg,#fffef5 0%,#fff8d6 100%);border-color:#e6c200}
+.gc-sticker-img{width:116px;height:116px;object-fit:contain;display:block;filter:drop-shadow(0 4px 10px rgba(15,23,42,.18))}
+
 @media(max-width:760px){.brand{align-items:flex-start;flex-direction:column}.marketplaces{width:100%}.s8,.s6,.s4,.s3{grid-column:span 12}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.history-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.platform-compare{grid-template-columns:1fr}.card{padding:16px}}@media(max-width:430px){.wrap{padding-left:12px;padding-right:12px}.top{padding:16px 14px 20px}.market-logo{flex:1;justify-content:center;padding:8px 7px;font-size:11px}.market-logo svg,.market-logo img{width:30px;height:30px}.tab{padding:8px 11px;gap:8px}.nav-icon{width:30px;height:30px;font-size:15px}.tab b{font-size:12px}.tab small{font-size:9px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.kpi strong{font-size:18px}.developer-top{display:block;margin:4px 0 0}}
 </style>
 
@@ -210,14 +267,79 @@
 <div id="gcRoomView" class="hidden">
  <div class="gc-user-bar">
   <div class="gc-user-info" id="gcCurrentUserBadge"></div>
-  <div style="font-size:11px;font-weight:800;color:#16a34a;background:#dcfce7;padding:4px 10px;border-radius:99px;border:1px solid #bbf7d0" id="gcRoomOnlineLabel">🟢 1 motorista online</div>
-  <button type="button" class="btn light" id="gcLeaveBtn" style="padding:6px 11px;font-size:11px">Alterar Nome / Sair</button>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+   <button type="button" class="admin-toggle-btn hidden" id="gcAdminPanelToggle">🛡️ Painel ADM</button>
+   <div style="font-size:11px;font-weight:800;color:#16a34a;background:#dcfce7;padding:4px 10px;border-radius:99px;border:1px solid #bbf7d0" id="gcRoomOnlineLabel">🟢 1 motorista online</div>
+   <button type="button" class="btn light" id="gcLeaveBtn" style="padding:6px 11px;font-size:11px">Alterar Nome / Sair</button>
+  </div>
  </div>
- <div class="gc-feed" id="gcFeed"></div>
- <form class="chat-form" id="gcMsgForm">
-  <input type="text" id="gcMsgInput" placeholder="Escreva uma mensagem para todos os motoristas online..." maxlength="400" autocomplete="off" required>
-  <button type="submit" class="btn" id="gcSendBtn">Enviar</button>
- </form>
+
+ <!-- Painel Exclusivo do Administrador (/admin544111) -->
+ <div id="gcAdminPanel" class="admin-panel hidden">
+  <div class="admin-panel-head">
+   <h3>👑 Central de Moderação & Controle do Administrador</h3>
+   <button type="button" class="btn red" id="gcClearAllMsgsBtn" style="padding:7px 12px;font-size:11px">🗑️ Limpar Chat para Todos</button>
+  </div>
+  <div class="admin-grid">
+   <div class="admin-box s6">
+    <h4>Controles Globais da Sala</h4>
+    <div class="admin-switch-row">
+     <span>🔒 Pausar / Travar Chat Geral (só ADM envia)</span>
+     <input type="checkbox" id="admLockChatSwitch">
+    </div>
+    <div class="admin-switch-row">
+     <span>🎭 Permitir Stickers / Figurinhas Animadas</span>
+     <input type="checkbox" id="admStickersSwitch" checked>
+    </div>
+    <div style="margin-top:10px">
+     <label style="color:#cbd5e1;font-size:11px">📌 Aviso Global Fixado no Topo do Chat</label>
+     <div class="admin-pin-form">
+      <input type="text" id="admPinnedInput" placeholder="Ex.: Atenção galera, movimento intenso no hub..." maxlength="220">
+      <button type="button" class="btn yellow" id="admPinSaveBtn" style="padding:8px 12px;font-size:11px">Fixar</button>
+      <button type="button" class="btn light" id="admPinClearBtn" style="padding:8px 10px;font-size:11px">Remover</button>
+     </div>
+    </div>
+   </div>
+   <div class="admin-box s6">
+    <h4>Motoristas Online & Moderação (<span id="admPeerCount">0</span>)</h4>
+    <div class="peer-list" id="admPeerList">
+     <div style="font-size:11px;color:#94a3b8">Nenhum motorista conectado no momento.</div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- Aviso Global Fixado -->
+ <div id="gcPinnedBanner" class="gc-pinned-banner hidden">
+  <div class="gc-pinned-icon">📌</div>
+  <div class="gc-pinned-body">
+   <div class="gc-pinned-title">Comunicado Oficial • Administração</div>
+   <div class="gc-pinned-text" id="gcPinnedText"></div>
+  </div>
+ </div>
+
+ <!-- Tela de Bloqueio para Usuário Banido -->
+ <div id="gcBannedView" class="gc-banned-screen hidden">
+  <h3>🚫 Acesso ao Chat Geral Suspenso</h3>
+  <p>O administrador suspendeu o acesso deste dispositivo ao Chat Geral da comunidade.<br>As demais ferramentas financeiras do painel continuam funcionando normalmente.</p>
+ </div>
+
+ <!-- Área Ativa de Mensagens -->
+ <div id="gcActiveChatArea">
+  <div class="gc-feed" id="gcFeed"></div>
+  <div id="gcModNotice" class="gc-status-notice hidden"></div>
+  <div class="sticker-wrapper">
+   <div id="stickerDrawer" class="sticker-drawer hidden">
+    <div class="sticker-cats" id="stickerCats"></div>
+    <div class="sticker-grid" id="stickerGrid"></div>
+   </div>
+   <form class="chat-form" id="gcMsgForm">
+    <button type="button" class="sticker-toggle-btn" id="stickerToggleBtn" title="Enviar Sticker Animado">😊</button>
+    <input type="text" id="gcMsgInput" placeholder="Escreva uma mensagem para todos os motoristas online..." maxlength="400" autocomplete="off" required>
+    <button type="submit" class="btn" id="gcSendBtn">Enviar</button>
+   </form>
+  </div>
+ </div>
 </div>
 </div>
 </section>
@@ -660,11 +782,21 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const dbRefMessages = db.ref('envios_extras_chat/messages');
 const dbRefPeers = db.ref('envios_extras_chat/peers');
+const dbRefModSettings = db.ref('envios_extras_chat/moderation/settings');
+const dbRefMuted = db.ref('envios_extras_chat/moderation/muted');
+const dbRefBanned = db.ref('envios_extras_chat/moderation/banned');
 
-const ADMIN_SECRET_CODE='544111';
+const ADMIN_COMMANDS=['/admin544111','544111'];
 const gcLoginView=$('gcLoginView'),gcRoomView=$('gcRoomView'),gcJoinForm=$('gcJoinForm');
 const gcNameInput=$('gcNameInput'),gcPlatSelect=$('gcPlatSelect'),gcCurrentUserBadge=$('gcCurrentUserBadge');
-const gcFeed=$('gcFeed'),gcMsgForm=$('gcMsgForm'),gcMsgInput=$('gcMsgInput'),gcLeaveBtn=$('gcLeaveBtn');
+const gcFeed=$('gcFeed'),gcMsgForm=$('gcMsgForm'),gcMsgInput=$('gcMsgInput'),gcSendBtn=$('gcSendBtn'),gcLeaveBtn=$('gcLeaveBtn');
+const gcAdminPanelToggle=$('gcAdminPanelToggle'),gcAdminPanel=$('gcAdminPanel');
+const admLockChatSwitch=$('admLockChatSwitch'),admStickersSwitch=$('admStickersSwitch');
+const admPinnedInput=$('admPinnedInput'),admPinSaveBtn=$('admPinSaveBtn'),admPinClearBtn=$('admPinClearBtn');
+const gcClearAllMsgsBtn=$('gcClearAllMsgsBtn'),admPeerList=$('admPeerList'),admPeerCount=$('admPeerCount');
+const gcPinnedBanner=$('gcPinnedBanner'),gcPinnedText=$('gcPinnedText');
+const gcBannedView=$('gcBannedView'),gcActiveChatArea=$('gcActiveChatArea'),gcModNotice=$('gcModNotice');
+const stickerToggleBtn=$('stickerToggleBtn'),stickerDrawer=$('stickerDrawer'),stickerCats=$('stickerCats'),stickerGrid=$('stickerGrid');
 
 let gcUser=readJSON('afe_gc_user',null);
 let gcClientId=readJSON('afe_gc_client_id',null);
@@ -673,6 +805,86 @@ if(!gcClientId){
  try{localStorage.setItem('afe_gc_client_id',JSON.stringify(gcClientId));}catch{}
 }
 let gcMessages=[];
+let gcPeersMap={};
+let modSettings={chatLocked:false,stickersEnabled:true,pinnedMessage:''};
+let mutedMap={};
+let bannedMap={};
+
+// Banco Público Curado de Stickers Animados (Google Noto Animated Emoji CDN)
+const STICKER_PACKS={
+ 'Reações':[
+  {label:'Joinha Top',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f44d/512.webp',fallback:'👍'},
+  {label:'Show / Palmas',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f44f/512.webp',fallback:'👏'},
+  {label:'Rindo Muito',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f602/512.webp',fallback:'😂'},
+  {label:'Rachando',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f923/512.webp',fallback:'🤣'},
+  {label:'Bora / Fogo',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp',fallback:'🔥'},
+  {label:'100% Meta',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f4af/512.webp',fallback:'💯'},
+  {label:'Valeu / Tamo Junto',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.webp',fallback:'🙏'},
+  {label:'Bícep / Força',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f4aa/512.webp',fallback:'💪'}
+ ],
+ 'Entregas & Rota':[
+  {label:'Van / Fiorino',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f690/512.webp',fallback:'🚐'},
+  {label:'Caminhão',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f69a/512.webp',fallback:'🚚'},
+  {label:'Carro na Rota',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f697/512.webp',fallback:'🚗'},
+  {label:'Moto Entrega',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f3cd_fe0f/512.webp',fallback:'🏍️'},
+  {label:'Pacote / Caixa',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f4e6/512.webp',fallback:'📦'},
+  {label:'Bomba Gasolina',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/26fd/512.webp',fallback:'⛽'},
+  {label:'Dinheiro / Lucro',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f4b8/512.webp',fallback:'💸'},
+  {label:'Troféu Líder',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f3c6/512.webp',fallback:'🏆'}
+ ],
+ 'Humor & Vibe':[
+  {label:'Óculos Estilo',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f60e/512.webp',fallback:'😎'},
+  {label:'Pensando',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f914/512.webp',fallback:'🤔'},
+  {label:'Calor / Trânsito',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f975/512.webp',fallback:'🥵'},
+  {label:'Festa / Meta Batida',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/512.webp',fallback:'🥳'},
+  {label:'Olho Vivo',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f440/512.webp',fallback:'👀'},
+  {label:'Alerta / Atenção',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a8/512.webp',fallback:'🚨'},
+  {label:'Café na Rota',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/2615/512.webp',fallback:'☕'},
+  {label:'Sirene / Corre',url:'https://fonts.gstatic.com/s/e/notoemoji/latest/26a1/512.webp',fallback:'⚡'}
+ ]
+};
+let activeStickerCat=Object.keys(STICKER_PACKS)[0];
+
+function renderStickerDrawer(){
+ stickerCats.replaceChildren();
+ Object.keys(STICKER_PACKS).forEach(cat=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.className='sticker-cat-btn'+(cat===activeStickerCat?' active':'');
+  b.textContent=cat;
+  b.onclick=()=>{activeStickerCat=cat;renderStickerDrawer();};
+  stickerCats.appendChild(b);
+ });
+
+ stickerGrid.replaceChildren();
+ (STICKER_PACKS[activeStickerCat]||[]).forEach(st=>{
+  const btn=document.createElement('button');
+  btn.type='button';
+  btn.className='sticker-item-btn';
+  btn.title=st.label;
+  btn.innerHTML=`<img src="${st.url}" alt="${escapeHtml(st.label)}" loading="lazy" onerror="this.outerHTML='<div style=\\'font-size:32px;line-height:46px\\'>${st.fallback}</div>'"><span>${escapeHtml(st.label)}</span>`;
+  btn.onclick=async ()=>{
+   stickerDrawer.classList.add('hidden');
+   stickerToggleBtn.classList.remove('active');
+   await sendGcMessage('',st);
+  };
+  stickerGrid.appendChild(btn);
+ });
+}
+renderStickerDrawer();
+
+stickerToggleBtn.addEventListener('click',()=>{
+ if(stickerToggleBtn.disabled)return;
+ const isHidden=stickerDrawer.classList.toggle('hidden');
+ stickerToggleBtn.classList.toggle('active',!isHidden);
+});
+
+document.addEventListener('click',e=>{
+ if(!stickerDrawer.classList.contains('hidden')&&!stickerDrawer.contains(e.target)&&!stickerToggleBtn.contains(e.target)){
+  stickerDrawer.classList.add('hidden');
+  stickerToggleBtn.classList.remove('active');
+ }
+});
 
 function escapeHtml(str){
  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -691,10 +903,116 @@ function updateGcHeader(){
  if(!gcUser)return;
  if(gcUser.isAdmin){
   gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: ${buildAdminTagHtml(gcUser.adminCustomName||'Abraão Gessé')}`;
+  gcAdminPanelToggle.classList.remove('hidden');
  }else{
   const platCls=gcUser.platform==='Shopee'?'shopee':(gcUser.platform==='Ambas'?'ambas':'ml');
   gcCurrentUserBadge.innerHTML=`<span class="gc-online-dot"></span> Conectado como: <b>${escapeHtml(gcUser.name)}</b> <span class="driver-plat-tag ${platCls}">${escapeHtml(gcUser.platform)}</span>`;
+  gcAdminPanelToggle.classList.add('hidden');
+  gcAdminPanel.classList.add('hidden');
  }
+}
+
+function applyModerationState(){
+ const isAdmin=Boolean(gcUser&&gcUser.isAdmin);
+ const isBanned=!isAdmin&&Boolean(bannedMap[gcClientId]);
+ const isMuted=!isAdmin&&Boolean(mutedMap[gcClientId]);
+ const isChatLocked=!isAdmin&&Boolean(modSettings.chatLocked);
+ const stickersAllowed=isAdmin||modSettings.stickersEnabled!==false;
+
+ if(modSettings.pinnedMessage&&modSettings.pinnedMessage.trim()){
+  gcPinnedText.textContent=modSettings.pinnedMessage;
+  gcPinnedBanner.classList.remove('hidden');
+ }else{
+  gcPinnedBanner.classList.add('hidden');
+ }
+
+ if(isBanned){
+  gcBannedView.classList.remove('hidden');
+  gcActiveChatArea.classList.add('hidden');
+  return;
+ }else{
+  gcBannedView.classList.add('hidden');
+  gcActiveChatArea.classList.remove('hidden');
+ }
+
+ if(isChatLocked){
+  gcModNotice.textContent='🔒 O Administrador pausou temporariamente o envio de mensagens no Chat Geral.';
+  gcModNotice.classList.remove('hidden');
+  gcMsgInput.disabled=true;
+  gcSendBtn.disabled=true;
+  stickerToggleBtn.disabled=true;
+  stickerDrawer.classList.add('hidden');
+ }else if(isMuted){
+  gcModNotice.textContent='🔇 Seu envio de mensagens foi temporariamente silenciado pelo Administrador.';
+  gcModNotice.classList.remove('hidden');
+  gcMsgInput.disabled=true;
+  gcSendBtn.disabled=true;
+  stickerToggleBtn.disabled=true;
+  stickerDrawer.classList.add('hidden');
+ }else{
+  gcModNotice.classList.add('hidden');
+  gcMsgInput.disabled=false;
+  gcSendBtn.disabled=false;
+  stickerToggleBtn.disabled=!stickersAllowed;
+  if(!stickersAllowed){
+   stickerDrawer.classList.add('hidden');
+   stickerToggleBtn.classList.remove('active');
+  }
+ }
+
+ if(isAdmin){
+  admLockChatSwitch.checked=Boolean(modSettings.chatLocked);
+  admStickersSwitch.checked=modSettings.stickersEnabled!==false;
+  if(document.activeElement!==admPinnedInput){
+   admPinnedInput.value=modSettings.pinnedMessage||'';
+  }
+  renderAdminPeerList();
+ }
+}
+
+function renderAdminPeerList(){
+ if(!gcUser||!gcUser.isAdmin)return;
+ admPeerList.replaceChildren();
+ const entries=Object.entries(gcPeersMap);
+ admPeerCount.textContent=entries.length;
+ if(!entries.length){
+  admPeerList.innerHTML='<div style="font-size:11px;color:#94a3b8">Nenhum motorista conectado no momento.</div>';
+  return;
+ }
+ entries.forEach(([pid,pdata])=>{
+  const isSelf=pid===gcClientId;
+  const isMuted=Boolean(mutedMap[pid]);
+  const isBanned=Boolean(bannedMap[pid]);
+  const name=pdata&&pdata.name?pdata.name:'Motorista';
+  const plat=pdata&&pdata.platform?pdata.platform:'Mercado Livre';
+  const row=document.createElement('div');
+  row.className='peer-item';
+  row.innerHTML=`<div class="peer-meta"><b>${escapeHtml(name)}</b> <span style="font-size:10px;color:#93c5fd">(${escapeHtml(plat)})</span>${isSelf?' <span style="font-size:10px;color:#fde047">[Você]</span>':''}${isMuted?' <span style="font-size:10px;color:#fbbf24">[Silenciado]</span>':''}${isBanned?' <span style="font-size:10px;color:#f87171">[Banido]</span>':''}</div>`;
+  if(!isSelf){
+   const act=document.createElement('div');
+   act.className='peer-actions';
+   const btnMute=document.createElement('button');
+   btnMute.type='button';
+   btnMute.className='peer-btn mute'+(isMuted?' active':'');
+   btnMute.textContent=isMuted?'Reativar Voz':'Silenciar';
+   btnMute.onclick=async ()=>{
+    if(isMuted){await dbRefMuted.child(pid).remove();showToast('Motorista Reativado',`${name} pode voltar a enviar mensagens.`,'both');}
+    else{await dbRefMuted.child(pid).set({name,ts:firebase.database.ServerValue.TIMESTAMP});showToast('Motorista Silenciado',`${name} foi silenciado no Chat Geral.`,'both');}
+   };
+   const btnBan=document.createElement('button');
+   btnBan.type='button';
+   btnBan.className='peer-btn ban'+(isBanned?' active':'');
+   btnBan.textContent=isBanned?'Desbanir':'Banir';
+   btnBan.onclick=async ()=>{
+    if(isBanned){await dbRefBanned.child(pid).remove();showToast('Acesso Restaurado',`O banimento de ${name} foi removido.`,'both');}
+    else{await dbRefBanned.child(pid).set({name,ts:firebase.database.ServerValue.TIMESTAMP});showToast('Usuário Banido',`${name} foi bloqueado do Chat Geral.`,'both');}
+   };
+   act.appendChild(btnMute);
+   act.appendChild(btnBan);
+   row.appendChild(act);
+  }
+  admPeerList.appendChild(row);
+ });
 }
 
 function renderGcMessages(){
@@ -707,10 +1025,12 @@ function renderGcMessages(){
   gcFeed.appendChild(empty);
   return;
  }
+ const isAdmin=Boolean(gcUser&&gcUser.isAdmin);
  gcMessages.forEach(m=>{
   const isMine=m.clientId===gcClientId;
+  const isSticker=m.type==='sticker'&&m.stickerUrl;
   const item=document.createElement('div');
-  item.className='gc-msg'+(isMine?' mine':'')+(m.isAdmin?' is-admin':'');
+  item.className='gc-msg'+(isMine?' mine':'')+(m.isAdmin?' is-admin':'')+(isSticker?' sticker-msg':'');
   const timeStr=m.ts?new Date(m.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
   let authorHtml='';
   if(m.isAdmin){
@@ -719,7 +1039,33 @@ function renderGcMessages(){
    const platCls=m.platform==='Shopee'?'shopee':(m.platform==='Ambas'?'ambas':'ml');
    authorHtml=`<span class="gc-author">${escapeHtml(m.name)}</span><span class="driver-plat-tag ${platCls}">${escapeHtml(m.platform||'Mercado Livre')}</span>`;
   }
-  item.innerHTML=`<div class="gc-msg-head">${authorHtml}<span class="gc-time">${timeStr}</span></div><div class="gc-msg-text">${escapeHtml(m.text)}</div>`;
+  const headDiv=document.createElement('div');
+  headDiv.className='gc-msg-head';
+  headDiv.innerHTML=`${authorHtml}<span class="gc-time">${timeStr}</span>`;
+  if(isAdmin&&m.id){
+   const delBtn=document.createElement('button');
+   delBtn.type='button';
+   delBtn.className='msg-del-btn';
+   delBtn.title='Excluir esta mensagem para todos';
+   delBtn.textContent='🗑️';
+   delBtn.onclick=async ()=>{await dbRefMessages.child(m.id).remove();};
+   headDiv.appendChild(delBtn);
+  }
+  item.appendChild(headDiv);
+
+  if(isSticker){
+   const img=document.createElement('img');
+   img.className='gc-sticker-img';
+   img.src=m.stickerUrl;
+   img.alt=m.stickerLabel||'Sticker';
+   img.onerror=()=>{img.outerHTML=`<div style="font-size:64px;line-height:1.1;padding:4px">${escapeHtml(m.stickerFallback||'👍')}</div>`;};
+   item.appendChild(img);
+  }else{
+   const txtDiv=document.createElement('div');
+   txtDiv.className='gc-msg-text';
+   txtDiv.textContent=m.text||'';
+   item.appendChild(txtDiv);
+  }
   gcFeed.appendChild(item);
  });
  if(wasNearBottom)gcFeed.scrollTop=gcFeed.scrollHeight;
@@ -730,6 +1076,7 @@ function refreshGcView(){
   gcLoginView.classList.add('hidden');
   gcRoomView.classList.remove('hidden');
   updateGcHeader();
+  applyModerationState();
   renderGcMessages();
   gcFeed.scrollTop=gcFeed.scrollHeight;
  }else{
@@ -738,12 +1085,32 @@ function refreshGcView(){
  }
 }
 
-// Sincronização em tempo real das mensagens via Firebase Realtime Database
+// Listeners em Tempo Real do Firebase Realtime Database
 dbRefMessages.limitToLast(150).on('value', snapshot => {
  const val = snapshot.val() || {};
  gcMessages = Object.values(val).sort((a,b)=>Number(a.ts||0)-Number(b.ts||0));
  try{localStorage.setItem('afe_gc_cache',JSON.stringify(gcMessages));}catch{}
  renderGcMessages();
+});
+
+dbRefModSettings.on('value', snapshot => {
+ const val = snapshot.val() || {};
+ modSettings = {
+  chatLocked: Boolean(val.chatLocked),
+  stickersEnabled: val.stickersEnabled !== false,
+  pinnedMessage: String(val.pinnedMessage || '')
+ };
+ applyModerationState();
+});
+
+dbRefMuted.on('value', snapshot => {
+ mutedMap = snapshot.val() || {};
+ applyModerationState();
+});
+
+dbRefBanned.on('value', snapshot => {
+ bannedMap = snapshot.val() || {};
+ applyModerationState();
 });
 
 // Gestão de presença em tempo real (Motoristas online)
@@ -755,6 +1122,7 @@ function updatePresenceHeartbeat(){
   myPeerRef.set({
    name: gcUser.isAdmin ? (gcUser.adminCustomName || 'Abraão Gessé') : gcUser.name,
    platform: gcUser.platform || 'Mercado Livre',
+   isAdmin: Boolean(gcUser.isAdmin),
    ts: firebase.database.ServerValue.TIMESTAMP
   });
  }
@@ -765,19 +1133,67 @@ setInterval(updatePresenceHeartbeat, 10000);
 dbRefPeers.on('value', snapshot => {
  const peers = snapshot.val() || {};
  const now = Date.now();
- let activeCount = 0;
+ const activePeers = {};
  Object.keys(peers).forEach(pid => {
   const pData = peers[pid];
   const pTime = typeof pData === 'object' && pData !== null ? (pData.ts || 0) : Number(pData || 0);
   if(!pTime || (now - pTime) < 35000) {
-   activeCount++;
+   activePeers[pid] = pData;
   }
  });
- const totalOnline = Math.max(1, activeCount);
+ gcPeersMap = activePeers;
+ const totalOnline = Math.max(1, Object.keys(activePeers).length);
  const countEl = $('gcOnlineCount');
  const roomLabel = $('gcRoomOnlineLabel');
  if(countEl) countEl.textContent = totalOnline;
  if(roomLabel) roomLabel.textContent = `🟢 ${totalOnline} motorista(s) online`;
+ if(gcUser && gcUser.isAdmin) renderAdminPeerList();
+});
+
+// Controles do Painel de Administração
+gcAdminPanelToggle.addEventListener('click',()=>{
+ gcAdminPanel.classList.toggle('hidden');
+ if(!gcAdminPanel.classList.contains('hidden'))renderAdminPeerList();
+});
+
+admLockChatSwitch.addEventListener('change',async ()=>{
+ if(!gcUser||!gcUser.isAdmin)return;
+ await dbRefModSettings.update({chatLocked:admLockChatSwitch.checked});
+ showToast(admLockChatSwitch.checked?'Chat Geral Pausado':'Chat Geral Liberado',admLockChatSwitch.checked?'Apenas você (Administrador) pode enviar mensagens agora.':'Todos os motoristas podem voltar a conversar.','both');
+});
+
+admStickersSwitch.addEventListener('change',async ()=>{
+ if(!gcUser||!gcUser.isAdmin)return;
+ await dbRefModSettings.update({stickersEnabled:admStickersSwitch.checked});
+ showToast(admStickersSwitch.checked?'Stickers Ativados':'Stickers Desativados',admStickersSwitch.checked?'Figurinhas animadas liberadas na sala.':'Envio de stickers bloqueado temporariamente.','both');
+});
+
+admPinSaveBtn.addEventListener('click',async ()=>{
+ if(!gcUser||!gcUser.isAdmin)return;
+ const txt=admPinnedInput.value.trim();
+ await dbRefModSettings.update({pinnedMessage:txt});
+ showToast('Aviso Global Atualizado',txt?'Comunicado fixado no topo do chat para todos.':'Aviso removido.','both');
+});
+
+admPinClearBtn.addEventListener('click',async ()=>{
+ if(!gcUser||!gcUser.isAdmin)return;
+ admPinnedInput.value='';
+ await dbRefModSettings.update({pinnedMessage:''});
+ showToast('Aviso Removido','O comunicado fixado foi retirado do topo do chat.','both');
+});
+
+gcClearAllMsgsBtn.addEventListener('click',async ()=>{
+ if(!gcUser||!gcUser.isAdmin)return;
+ if(gcClearAllMsgsBtn.dataset.confirming){
+  await dbRefMessages.remove();
+  delete gcClearAllMsgsBtn.dataset.confirming;
+  gcClearAllMsgsBtn.textContent='🗑️ Limpar Chat para Todos';
+  showToast('Sala Higienizada','Todas as mensagens do Chat Geral foram apagadas para todos os dispositivos.','both');
+ }else{
+  gcClearAllMsgsBtn.dataset.confirming='1';
+  gcClearAllMsgsBtn.textContent='⚠️ Confirmar Limpeza Total?';
+  setTimeout(()=>{if(gcClearAllMsgsBtn.isConnected){delete gcClearAllMsgsBtn.dataset.confirming;gcClearAllMsgsBtn.textContent='🗑️ Limpar Chat para Todos';}},3500);
+ }
 });
 
 gcJoinForm.addEventListener('submit', async e=>{
@@ -785,14 +1201,16 @@ gcJoinForm.addEventListener('submit', async e=>{
  const rawInput=gcNameInput.value.trim();
  if(!rawInput)return;
 
- if(rawInput.startsWith(ADMIN_SECRET_CODE)){
-  const restOfText=rawInput.slice(ADMIN_SECRET_CODE.length).trim();
+ const matchedCmd=ADMIN_COMMANDS.find(cmd=>rawInput.toLowerCase().startsWith(cmd.toLowerCase()));
+ if(matchedCmd){
+  const restOfText=rawInput.slice(matchedCmd.length).trim();
   const customAdminName=restOfText.length>0?restOfText:'Abraão Gessé';
   gcUser={name:customAdminName,isAdmin:true,adminCustomName:customAdminName,platform:'Administração'};
   try{localStorage.setItem('afe_gc_user',JSON.stringify(gcUser));}catch{}
   gcNameInput.value='';
   refreshGcView();
-  showToast('Acesso Moderador Liberado',`Bem-vindo, ${customAdminName}! Sua TAG oficial de Administrador está ativa.`,'both');
+  gcAdminPanel.classList.remove('hidden');
+  showToast('Acesso Administrador Liberado',`Bem-vindo, ${customAdminName}! Painel ADM e TAG oficial ativados.`,'both');
  }else{
   gcUser={name:rawInput,isAdmin:false,platform:gcPlatSelect.value||'Mercado Livre'};
   try{localStorage.setItem('afe_gc_user',JSON.stringify(gcUser));}catch{}
@@ -811,17 +1229,42 @@ gcLeaveBtn.addEventListener('click', async ()=>{
  refreshGcView();
 });
 
-async function sendGcMessage(text){
+async function sendGcMessage(text,stickerObj=null){
+ if(!gcUser)return;
+ const isAdmin=Boolean(gcUser.isAdmin);
+ if(!isAdmin&&(bannedMap[gcClientId]||mutedMap[gcClientId]||modSettings.chatLocked))return;
+
+ if(stickerObj){
+  if(!isAdmin&&modSettings.stickersEnabled===false)return;
+  const newMsgRef=dbRefMessages.push();
+  await newMsgRef.set({
+   id:newMsgRef.key,
+   clientId:gcClientId,
+   name:isAdmin?(gcUser.adminCustomName||'Abraão Gessé'):gcUser.name,
+   isAdmin,
+   adminCustomName:gcUser.adminCustomName||'',
+   platform:gcUser.platform||'Mercado Livre',
+   type:'sticker',
+   stickerUrl:stickerObj.url,
+   stickerLabel:stickerObj.label,
+   stickerFallback:stickerObj.fallback,
+   text:`[Sticker: ${stickerObj.label}]`,
+   ts:firebase.database.ServerValue.TIMESTAMP
+  });
+  return;
+ }
+
  const clean=text.trim();
- if(!clean||!gcUser)return;
+ if(!clean)return;
  const newMsgRef = dbRefMessages.push();
  const msgObj={
   id: newMsgRef.key,
   clientId: gcClientId,
-  name: gcUser.isAdmin?(gcUser.adminCustomName||'Abraão Gessé'):gcUser.name,
-  isAdmin: Boolean(gcUser.isAdmin),
+  name: isAdmin?(gcUser.adminCustomName||'Abraão Gessé'):gcUser.name,
+  isAdmin: isAdmin,
   adminCustomName: gcUser.adminCustomName||'',
   platform: gcUser.platform||'Mercado Livre',
+  type: 'text',
   text: clean,
   ts: firebase.database.ServerValue.TIMESTAMP
  };
