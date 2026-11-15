@@ -89,8 +89,8 @@
 .chat-suggestions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .chip{background:#eef1f8;color:var(--blue);border:1px solid #dce2ef;border-radius:99px;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;transition:.15s}
 .chip:hover{background:var(--yellow);color:#202637;border-color:#e9d400}
-.chat-form{display:flex;gap:8px}
-.chat-form input{flex:1;padding:12px 14px;border:1px solid #dce2ed;border-radius:12px;font-size:14px;font-family:inherit;outline:none}
+.chat-form{display:flex;gap:8px;align-items:center}
+.chat-form input{flex:1;min-width:0;padding:12px 14px;border:1px solid #dce2ed;border-radius:12px;font-size:14px;font-family:inherit;outline:none}
 .chat-form input:focus{border-color:#536bb0;box-shadow:0 0 0 3px #253b8013}
 .sources-list{margin-top:8px;padding-top:6px;border-top:1px dashed #cbd5ed;font-size:10px;color:#5a6782}
 .sources-list a{color:var(--blue);text-decoration:underline;margin-right:8px}
@@ -165,12 +165,35 @@
 .gc-banned-screen h3{color:#9f1239;font-size:17px;margin:0 0 8px}
 .gc-banned-screen p{color:#881337;font-size:13px;margin:0;line-height:1.5}
 
-/* Gaveta de Stickers / Figurinhas Animadas Estilo WhatsApp */
+/* Gaveta de Stickers / Figurinhas Animadas & Menu/Visor de Câmera */
 .sticker-wrapper{position:relative}
 .sticker-toggle-btn{background:#eef1f8;color:var(--blue);border:1px solid #dce2ef;border-radius:12px;width:44px;height:44px;display:grid;place-items:center;font-size:20px;cursor:pointer;flex:none;transition:.15s}
 .sticker-toggle-btn:hover,.sticker-toggle-btn.active{background:var(--yellow);color:#172554;border-color:#e6cf00}
 .sticker-toggle-btn:disabled{opacity:.45;cursor:not-allowed}
 .sticker-drawer{position:absolute;bottom:54px;left:0;width:min(360px,calc(100vw - 44px));background:#fff;border:1.5px solid #cbd5e1;border-radius:16px;box-shadow:0 16px 38px rgba(15,23,42,.22);z-index:50;overflow:hidden;animation:appear .16s ease}
+.photo-menu{position:absolute;bottom:54px;left:46px;width:245px;background:#fff;border:1.5px solid #cbd5e1;border-radius:15px;box-shadow:0 16px 38px rgba(15,23,42,.22);z-index:55;padding:6px;display:flex;flex-direction:column;gap:4px;animation:appear .15s ease}
+.photo-menu-btn{width:100%;border:0;background:transparent;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;text-align:left;font-family:inherit;font-size:12.5px;font-weight:800;color:#172033;cursor:pointer;transition:.12s}
+.photo-menu-btn:hover{background:#eef3ff;color:var(--blue)}
+.photo-menu-btn span.pm-ico{font-size:18px;width:24px;text-align:center;flex:none}
+.photo-menu-btn small{display:block;font-size:10px;font-weight:600;color:#64748b}
+.gc-photo-wrap{margin-top:4px;display:flex;flex-direction:column;gap:4px}
+.gc-photo-img{max-width:245px;max-height:260px;width:auto;height:auto;border-radius:11px;display:block;cursor:zoom-in;border:1px solid rgba(15,23,42,.12);object-fit:cover;background:#f1f5f9}
+.photo-lightbox{position:fixed;inset:0;background:rgba(15,23,42,.88);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;cursor:zoom-out;animation:appear .15s ease}
+.photo-lightbox img{max-width:95vw;max-height:84vh;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.5);object-fit:contain}
+.photo-lightbox-cap{color:#f8fafc;font-size:12.5px;font-weight:700;margin-top:10px;text-align:center}
+
+/* Modal de Câmera ao Vivo */
+.camera-modal{position:fixed;inset:0;background:#090d16;z-index:99998;display:flex;flex-direction:column;justify-content:space-between;padding:16px;color:#fff}
+.camera-modal-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.camera-mode-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:99px;font-size:12px;font-weight:800;color:#ffe600}
+.camera-stage{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;margin:12px 0;border-radius:18px;background:#000;position:relative;border:1px solid rgba(255,255,255,.12)}
+.camera-stage video,.camera-stage img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}
+.camera-stage video.mirrored{transform:scaleX(-1)}
+.camera-controls{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding-bottom:6px}
+.cam-shutter-btn{width:66px;height:66px;border-radius:50%;border:4px solid #ffe600;background:#fff;cursor:pointer;box-shadow:0 0 0 4px rgba(255,230,0,.25);transition:.15s}
+.cam-shutter-btn:active{transform:scale(.92)}
+.cam-action-btn{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.12);color:#fff;border-radius:12px;padding:11px 15px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.cam-action-btn.primary{background:#16a34a;border-color:#22c55e;color:#fff}
 .sticker-cats{display:flex;background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:6px;gap:4px;overflow-x:auto}
 .sticker-cat-btn{border:0;background:transparent;border-radius:9px;padding:6px 10px;font-size:11px;font-weight:800;color:#475569;cursor:pointer;white-space:nowrap;transition:.15s}
 .sticker-cat-btn.active{background:#172554;color:#ffe600}
@@ -311,6 +334,10 @@
      <span>🎭 Permitir Stickers / Figurinhas Animadas</span>
      <input type="checkbox" id="admStickersSwitch" checked>
     </div>
+    <div class="admin-switch-row">
+     <span>📷 Permitir Envio de Fotos & Câmera</span>
+     <input type="checkbox" id="admPhotosSwitch" checked>
+    </div>
     <div style="margin-top:10px">
      <label style="color:#cbd5e1;font-size:11px">📌 Aviso Global Fixado no Topo do Chat</label>
      <div class="admin-pin-form">
@@ -353,8 +380,21 @@
     <div class="sticker-cats" id="stickerCats"></div>
     <div class="sticker-grid" id="stickerGrid"></div>
    </div>
+   <div id="photoMenu" class="photo-menu hidden">
+    <button type="button" class="photo-menu-btn" id="btnCamOpen">
+     <span class="pm-ico">📸</span>
+     <span>Câmera<small>Tirar foto ao vivo</small></span>
+    </button>
+    <button type="button" class="photo-menu-btn" id="btnGalleryPick">
+     <span class="pm-ico">🖼️</span>
+     <span>Galeria de Fotos<small>Escolher imagem salva</small></span>
+    </button>
+   </div>
+   <input type="file" id="inputCamFront" accept="image/*" capture="user" hidden>
+   <input type="file" id="inputGalleryPick" accept="image/*" hidden>
    <form class="chat-form" id="gcMsgForm">
     <button type="button" class="sticker-toggle-btn" id="stickerToggleBtn" title="Enviar Sticker Animado">😊</button>
+    <button type="button" class="sticker-toggle-btn" id="photoToggleBtn" title="Enviar Foto ou Abrir Câmera">📷</button>
     <input type="text" id="gcMsgInput" placeholder="Escreva uma mensagem para todos os motoristas online..." maxlength="400" autocomplete="off" required>
     <button type="submit" class="btn" id="gcSendBtn">Enviar</button>
    </form>
@@ -363,6 +403,27 @@
 </div>
 </div>
 </section>
+
+<!-- Modal de Câmera ao Vivo -->
+<div id="cameraModal" class="camera-modal hidden">
+ <div class="camera-modal-top">
+  <span class="camera-mode-badge" id="cameraModeLabel">📸 Câmera</span>
+  <button type="button" class="cam-action-btn" id="camCloseBtn">✕ Fechar</button>
+ </div>
+ <div class="camera-stage">
+  <video id="cameraVideo" autoplay playsinline muted></video>
+  <img id="cameraPreview" class="hidden" alt="Prévia da foto">
+ </div>
+ <div class="camera-controls" id="camLiveControls">
+  <button type="button" class="cam-action-btn" id="camSwitchBtn">🔄 Inverter Câmera</button>
+  <button type="button" class="cam-shutter-btn" id="camCaptureBtn" title="Tirar Foto"></button>
+  <button type="button" class="cam-action-btn" id="camFallbackFileBtn">📁 Arquivo</button>
+ </div>
+ <div class="camera-controls hidden" id="camReviewControls">
+  <button type="button" class="cam-action-btn" id="camRetakeBtn">↩️ Tirar Outra</button>
+  <button type="button" class="cam-action-btn primary" id="camSendPhotoBtn">✅ Enviar Foto no Chat</button>
+ </div>
+</div>
 
 <section class="page" id="settings"><div class="grid"><div class="card s6"><h2>Configurações do veículo</h2><p class="sub">Valores usados automaticamente em cada análise.</p><div class="fields"><div class="field full"><label for="vehicleSearch">Buscar modelo de veículo (combustão, elétrico, híbrido ou moto)</label><div class="vehicle-search-wrap"><input id="vehicleSearch" type="text" placeholder="Digite o nome do seu carro" autocomplete="off"><span class="vehicle-search-icon">🔍</span><div id="vehicleDropdown" class="vehicle-dropdown hidden"></div></div><span class="hint">Médias calibradas para <b>rota urbana real de entregas</b> (para-e-arranca, ar e carga). Para elétricos (como BYD), exibe a equivalência energética em km/L-e.</span></div><div class="field full"><label for="maintenance">Reserva de manutenção (R$/km)</label><input id="maintenance" type="number" min="0" step=".01"></div><div class="field full"><label for="defaultFuel">Preço padrão do combustível / energia eq. (R$/L)</label><input id="defaultFuel" type="number" min="0" step=".01"></div><div class="field full"><label for="defaultConsumption">Consumo padrão do veículo (km/L)</label><input id="defaultConsumption" type="number" min="0.1" step=".1"></div><div class="field full"><label for="dailyGoal">Meta diária de lucro líquido (R$)</label><input id="dailyGoal" type="number" min="0" step=".01"></div></div><div class="actions"><button class="btn" id="saveSettings">Salvar configurações</button></div></div><div class="card s6"><h2>Parâmetros operacionais</h2><p id="activeVehicleWrap" class="hidden"><b id="activeVehicleTitle"></b></p><p class="sub">Ajuste o consumo padrão conforme a média real obtida na sua rota. Esse valor pode ser ligado ou desligado individualmente na calculadora.</p><div class="notice">A taxa de manutenção é independente do combustível. O consumo padrão estima os litros pela distância ÷ km/L; com a opção desligada, a calculadora usa os litros informados manualmente.<br><br><b>Veículos Elétricos (BYD, GWM, etc.):</b> O valor sugerido representa a eficiência equivalente em rota urbana (km/L-e) para calcular o custo real por km na mesma base da gasolina.<br><br><b>Suporte IA Ativo:</b> O assistente <b>Abraão Gessé</b> funciona automaticamente sem exigir chaves ou configurações extras.</div></div><div class="card s12"><h3>Gerenciamento dos dados</h3><p class="sub">Os registros ficam armazenados localmente no navegador deste aparelho. Faça backups periódicos.</p><button class="btn red" id="deleteAll">Apagar todo o histórico</button></div></div></section>
 
@@ -1174,12 +1235,18 @@ const gcLoginView=$('gcLoginView'),gcRoomView=$('gcRoomView'),gcJoinForm=$('gcJo
 const gcNameInput=$('gcNameInput'),gcPlatSelect=$('gcPlatSelect'),gcCurrentUserBadge=$('gcCurrentUserBadge');
 const gcFeed=$('gcFeed'),gcMsgForm=$('gcMsgForm'),gcMsgInput=$('gcMsgInput'),gcSendBtn=$('gcSendBtn'),gcLeaveBtn=$('gcLeaveBtn');
 const gcAdminPanelToggle=$('gcAdminPanelToggle'),gcAdminPanel=$('gcAdminPanel');
-const admLockChatSwitch=$('admLockChatSwitch'),admStickersSwitch=$('admStickersSwitch');
+const admLockChatSwitch=$('admLockChatSwitch'),admStickersSwitch=$('admStickersSwitch'),admPhotosSwitch=$('admPhotosSwitch');
 const admPinnedInput=$('admPinnedInput'),admPinSaveBtn=$('admPinSaveBtn'),admPinClearBtn=$('admPinClearBtn');
 const gcClearAllMsgsBtn=$('gcClearAllMsgsBtn'),admPeerList=$('admPeerList'),admPeerCount=$('admPeerCount');
 const gcPinnedBanner=$('gcPinnedBanner'),gcPinnedText=$('gcPinnedText');
 const gcBannedView=$('gcBannedView'),gcActiveChatArea=$('gcActiveChatArea'),gcModNotice=$('gcModNotice');
 const stickerToggleBtn=$('stickerToggleBtn'),stickerDrawer=$('stickerDrawer'),stickerCats=$('stickerCats'),stickerGrid=$('stickerGrid');
+const photoToggleBtn=$('photoToggleBtn'),photoMenu=$('photoMenu');
+const btnCamOpen=$('btnCamOpen'),btnGalleryPick=$('btnGalleryPick');
+const inputCamFront=$('inputCamFront'),inputGalleryPick=$('inputGalleryPick');
+const cameraModal=$('cameraModal'),cameraModeLabel=$('cameraModeLabel'),cameraVideo=$('cameraVideo'),cameraPreview=$('cameraPreview');
+const camCloseBtn=$('camCloseBtn'),camSwitchBtn=$('camSwitchBtn'),camCaptureBtn=$('camCaptureBtn'),camFallbackFileBtn=$('camFallbackFileBtn');
+const camLiveControls=$('camLiveControls'),camReviewControls=$('camReviewControls'),camRetakeBtn=$('camRetakeBtn'),camSendPhotoBtn=$('camSendPhotoBtn');
 
 let gcUser=readJSON('afe_gc_user',null);
 let gcClientId=readJSON('afe_gc_client_id',null);
@@ -1189,7 +1256,7 @@ if(!gcClientId){
 }
 let gcMessages=[];
 let gcPeersMap={};
-let modSettings={chatLocked:false,stickersEnabled:true,pinnedMessage:''};
+let modSettings={chatLocked:false,stickersEnabled:true,photosEnabled:true,pinnedMessage:''};
 let mutedMap={};
 let bannedMap={};
 let kickedFlag=false;
@@ -1237,7 +1304,7 @@ function renderStickerDrawer(){
   b.type='button';
   b.className='sticker-cat-btn'+(cat===activeStickerCat?' active':'');
   b.textContent=cat;
-  b.onclick=()=>{activeStickerCat=cat;renderStickerDrawer();};
+  b.onclick=(e)=>{e.stopPropagation();activeStickerCat=cat;renderStickerDrawer();};
   stickerCats.appendChild(b);
  });
 
@@ -1248,7 +1315,8 @@ function renderStickerDrawer(){
   btn.className='sticker-item-btn';
   btn.title=st.label;
   btn.innerHTML=`<img src="${st.url}" alt="${escapeHtml(st.label)}" loading="lazy" onerror="this.outerHTML='<div style=\\'font-size:32px;line-height:46px\\'>${st.fallback}</div>'"><span>${escapeHtml(st.label)}</span>`;
-  btn.onclick=async ()=>{
+  btn.onclick=async (e)=>{
+   e.stopPropagation();
    stickerDrawer.classList.add('hidden');
    stickerToggleBtn.classList.remove('active');
    await sendGcMessage('',st);
@@ -1258,16 +1326,219 @@ function renderStickerDrawer(){
 }
 renderStickerDrawer();
 
-stickerToggleBtn.addEventListener('click',()=>{
+stickerDrawer.addEventListener('click',e=>e.stopPropagation());
+photoMenu.addEventListener('click',e=>e.stopPropagation());
+
+stickerToggleBtn.addEventListener('click',(e)=>{
+ e.stopPropagation();
  if(stickerToggleBtn.disabled)return;
+ photoMenu.classList.add('hidden');
+ photoToggleBtn.classList.remove('active');
  const isHidden=stickerDrawer.classList.toggle('hidden');
  stickerToggleBtn.classList.toggle('active',!isHidden);
 });
+
+photoToggleBtn.addEventListener('click',(e)=>{
+ e.stopPropagation();
+ if(photoToggleBtn.disabled)return;
+ stickerDrawer.classList.add('hidden');
+ stickerToggleBtn.classList.remove('active');
+ const isHidden=photoMenu.classList.toggle('hidden');
+ photoToggleBtn.classList.toggle('active',!isHidden);
+});
+
+// ================= VISOR DE CÂMERA AO VIVO =================
+let activeCameraStream=null;
+let currentFacingMode='user';
+let capturedPhotoDataUrl='';
+
+function stopCameraStream(){
+ if(activeCameraStream){
+  activeCameraStream.getTracks().forEach(t=>t.stop());
+  activeCameraStream=null;
+ }
+ cameraVideo.srcObject=null;
+}
+
+function closeCameraModal(){
+ stopCameraStream();
+ capturedPhotoDataUrl='';
+ cameraPreview.classList.add('hidden');
+ cameraVideo.classList.remove('hidden');
+ camLiveControls.classList.remove('hidden');
+ camReviewControls.classList.add('hidden');
+ cameraModal.classList.add('hidden');
+}
+
+async function openLiveCamera(facingMode='user'){
+ currentFacingMode=facingMode;
+ capturedPhotoDataUrl='';
+ cameraModeLabel.textContent='📸 Câmera';
+ cameraVideo.classList.toggle('mirrored',facingMode==='user');
+ cameraPreview.classList.add('hidden');
+ cameraVideo.classList.remove('hidden');
+ camLiveControls.classList.remove('hidden');
+ camReviewControls.classList.add('hidden');
+
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+  inputCamFront.click();
+  return;
+ }
+
+ stopCameraStream();
+ cameraModal.classList.remove('hidden');
+
+ try{
+  activeCameraStream=await navigator.mediaDevices.getUserMedia({
+   video:{facingMode:{ideal:facingMode},width:{ideal:1280},height:{ideal:720}},
+   audio:false
+  });
+  cameraVideo.srcObject=activeCameraStream;
+  await cameraVideo.play();
+ }catch(err){
+  try{
+   activeCameraStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+   cameraVideo.srcObject=activeCameraStream;
+   await cameraVideo.play();
+  }catch(fallbackErr){
+   closeCameraModal();
+   showToast('Câmera Indisponível','Abrindo seletor nativo do dispositivo...','both');
+   inputCamFront.click();
+  }
+ }
+}
+
+btnCamOpen.addEventListener('click',()=>{
+ photoMenu.classList.add('hidden');
+ photoToggleBtn.classList.remove('active');
+ openLiveCamera('user');
+});
+btnGalleryPick.addEventListener('click',()=>{
+ photoMenu.classList.add('hidden');
+ photoToggleBtn.classList.remove('active');
+ inputGalleryPick.click();
+});
+
+camCloseBtn.addEventListener('click',closeCameraModal);
+camSwitchBtn.addEventListener('click',()=>{
+ openLiveCamera(currentFacingMode==='user'?'environment':'user');
+});
+camFallbackFileBtn.addEventListener('click',()=>{
+ closeCameraModal();
+ inputCamFront.click();
+});
+
+camCaptureBtn.addEventListener('click',()=>{
+ if(!cameraVideo.videoWidth||!cameraVideo.videoHeight)return;
+ const maxDim=920;
+ let w=cameraVideo.videoWidth,h=cameraVideo.videoHeight;
+ if(w>maxDim||h>maxDim){
+  if(w>=h){h=Math.round(h*(maxDim/w));w=maxDim;}
+  else{w=Math.round(w*(maxDim/h));h=maxDim;}
+ }
+ const canvas=document.createElement('canvas');
+ canvas.width=w;canvas.height=h;
+ const ctx=canvas.getContext('2d');
+ if(currentFacingMode==='user'){
+  ctx.translate(w,0);
+  ctx.scale(-1,1);
+ }
+ ctx.drawImage(cameraVideo,0,0,w,h);
+ capturedPhotoDataUrl=canvas.toDataURL('image/jpeg',0.74);
+
+ cameraPreview.src=capturedPhotoDataUrl;
+ cameraVideo.classList.add('hidden');
+ cameraPreview.classList.remove('hidden');
+ camLiveControls.classList.add('hidden');
+ camReviewControls.classList.remove('hidden');
+});
+
+camRetakeBtn.addEventListener('click',()=>{
+ capturedPhotoDataUrl='';
+ cameraPreview.classList.add('hidden');
+ cameraVideo.classList.remove('hidden');
+ camReviewControls.classList.add('hidden');
+ camLiveControls.classList.remove('hidden');
+});
+
+camSendPhotoBtn.addEventListener('click',async ()=>{
+ if(!capturedPhotoDataUrl)return;
+ const dataUrl=capturedPhotoDataUrl;
+ closeCameraModal();
+ const caption=gcMsgInput.value.trim();
+ gcMsgInput.value='';
+ await sendGcPhoto(dataUrl,caption);
+});
+
+function compressImageToDataUrl(file,maxDim=920,quality=0.72){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onerror=()=>reject(new Error('Erro ao ler imagem'));
+  reader.onload=()=>{
+   const img=new Image();
+   img.onerror=()=>reject(new Error('Arquivo de imagem inválido'));
+   img.onload=()=>{
+    let w=img.width,h=img.height;
+    if(w>maxDim||h>maxDim){
+     if(w>=h){h=Math.round(h*(maxDim/w));w=maxDim;}
+     else{w=Math.round(w*(maxDim/h));h=maxDim;}
+    }
+    const canvas=document.createElement('canvas');
+    canvas.width=w;canvas.height=h;
+    const ctx=canvas.getContext('2d');
+    ctx.drawImage(img,0,0,w,h);
+    resolve(canvas.toDataURL('image/jpeg',quality));
+   };
+   img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
+ });
+}
+
+async function handlePhotoSelected(e){
+ const file=e.target.files&&e.target.files[0];
+ e.target.value='';
+ if(!file||!gcUser||kickedFlag)return;
+ const isAdmin=Boolean(gcUser.isAdmin);
+ if(!isAdmin&&(bannedMap[gcClientId]||mutedMap[gcClientId]||modSettings.chatLocked||modSettings.photosEnabled===false)){
+  showToast('Envio Bloqueado','O envio de fotos está desativado no momento pelo administrador.','both');
+  return;
+ }
+ photoToggleBtn.disabled=true;
+ showToast('Preparando Foto','Otimizando imagem para envio instantâneo no chat...','both');
+ try{
+  const dataUrl=await compressImageToDataUrl(file);
+  const caption=gcMsgInput.value.trim();
+  gcMsgInput.value='';
+  await sendGcPhoto(dataUrl,caption);
+ }catch(err){
+  showToast('Falha ao Enviar Foto','Não foi possível processar a imagem selecionada.','both');
+ }finally{
+  applyModerationState();
+ }
+}
+
+inputCamFront.addEventListener('change',handlePhotoSelected);
+inputGalleryPick.addEventListener('change',handlePhotoSelected);
+
+function openPhotoLightbox(src,caption=''){
+ const existing=document.querySelector('.photo-lightbox');
+ if(existing)existing.remove();
+ const overlay=document.createElement('div');
+ overlay.className='photo-lightbox';
+ overlay.innerHTML=`<img src="${src}" alt="Foto ampliada">${caption?`<div class="photo-lightbox-cap">${escapeHtml(caption)}</div>`:''}<div class="photo-lightbox-cap" style="opacity:.7;font-size:11px">Toque em qualquer lugar para fechar</div>`;
+ overlay.onclick=()=>overlay.remove();
+ document.body.appendChild(overlay);
+}
 
 document.addEventListener('click',e=>{
  if(!stickerDrawer.classList.contains('hidden')&&!stickerDrawer.contains(e.target)&&!stickerToggleBtn.contains(e.target)){
   stickerDrawer.classList.add('hidden');
   stickerToggleBtn.classList.remove('active');
+ }
+ if(!photoMenu.classList.contains('hidden')&&!photoMenu.contains(e.target)&&!photoToggleBtn.contains(e.target)){
+  photoMenu.classList.add('hidden');
+  photoToggleBtn.classList.remove('active');
  }
 });
 
@@ -1303,6 +1574,7 @@ function applyModerationState(){
  const isMuted=!isAdmin&&Boolean(mutedMap[gcClientId]);
  const isChatLocked=!isAdmin&&Boolean(modSettings.chatLocked);
  const stickersAllowed=isAdmin||modSettings.stickersEnabled!==false;
+ const photosAllowed=isAdmin||modSettings.photosEnabled!==false;
 
  if(modSettings.pinnedMessage&&modSettings.pinnedMessage.trim()){
   gcPinnedText.textContent=modSettings.pinnedMessage;
@@ -1326,28 +1598,38 @@ function applyModerationState(){
   gcMsgInput.disabled=true;
   gcSendBtn.disabled=true;
   stickerToggleBtn.disabled=true;
+  photoToggleBtn.disabled=true;
   stickerDrawer.classList.add('hidden');
+  photoMenu.classList.add('hidden');
  }else if(isMuted){
   gcModNotice.textContent='🔇 Seu envio de mensagens foi temporariamente silenciado pelo Administrador.';
   gcModNotice.classList.remove('hidden');
   gcMsgInput.disabled=true;
   gcSendBtn.disabled=true;
   stickerToggleBtn.disabled=true;
+  photoToggleBtn.disabled=true;
   stickerDrawer.classList.add('hidden');
+  photoMenu.classList.add('hidden');
  }else{
   gcModNotice.classList.add('hidden');
   gcMsgInput.disabled=false;
   gcSendBtn.disabled=false;
   stickerToggleBtn.disabled=!stickersAllowed;
+  photoToggleBtn.disabled=!photosAllowed;
   if(!stickersAllowed){
    stickerDrawer.classList.add('hidden');
    stickerToggleBtn.classList.remove('active');
+  }
+  if(!photosAllowed){
+   photoMenu.classList.add('hidden');
+   photoToggleBtn.classList.remove('active');
   }
  }
 
  if(isAdmin){
   admLockChatSwitch.checked=Boolean(modSettings.chatLocked);
   admStickersSwitch.checked=modSettings.stickersEnabled!==false;
+  admPhotosSwitch.checked=modSettings.photosEnabled!==false;
   if(document.activeElement!==admPinnedInput){
    admPinnedInput.value=modSettings.pinnedMessage||'';
   }
@@ -1428,6 +1710,7 @@ function renderGcMessages(){
  gcMessages.forEach(m=>{
   const isMine=m.clientId===gcClientId;
   const isSticker=m.type==='sticker'&&m.stickerUrl;
+  const isPhoto=m.type==='photo'&&m.photoUrl;
   const item=document.createElement('div');
   item.className='gc-msg'+(isMine?' mine':'')+(m.isAdmin?' is-admin':'')+(isSticker?' sticker-msg':'');
   const timeStr=m.ts?new Date(m.ts).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
@@ -1459,6 +1742,22 @@ function renderGcMessages(){
    img.alt=m.stickerLabel||'Sticker';
    img.onerror=()=>{img.outerHTML=`<div style="font-size:64px;line-height:1.1;padding:4px">${escapeHtml(m.stickerFallback||'👍')}</div>`;};
    item.appendChild(img);
+  }else if(isPhoto){
+   const wrap=document.createElement('div');
+   wrap.className='gc-photo-wrap';
+   const img=document.createElement('img');
+   img.className='gc-photo-img';
+   img.src=m.photoUrl;
+   img.alt='Foto enviada no chat';
+   img.onclick=()=>openPhotoLightbox(m.photoUrl,m.caption||'');
+   wrap.appendChild(img);
+   if(m.caption){
+    const capDiv=document.createElement('div');
+    capDiv.className='gc-msg-text';
+    capDiv.textContent=m.caption;
+    wrap.appendChild(capDiv);
+   }
+   item.appendChild(wrap);
   }else{
    const txtDiv=document.createElement('div');
    txtDiv.className='gc-msg-text';
@@ -1490,8 +1789,11 @@ async function forceDisconnectLocalSession(notify=true){
  kickedFlag = true;
  gcUser = null;
  try{ localStorage.removeItem('afe_gc_user'); }catch{}
+ closeCameraModal();
  stickerDrawer.classList.add('hidden');
  stickerToggleBtn.classList.remove('active');
+ photoMenu.classList.add('hidden');
+ photoToggleBtn.classList.remove('active');
  gcMsgInput.value = '';
  refreshGcView();
  try{
@@ -1516,6 +1818,7 @@ dbRefModSettings.on('value', snapshot => {
  modSettings = {
   chatLocked: Boolean(val.chatLocked),
   stickersEnabled: val.stickersEnabled !== false,
+  photosEnabled: val.photosEnabled !== false,
   pinnedMessage: String(val.pinnedMessage || '')
  };
  applyModerationState();
@@ -1597,6 +1900,12 @@ admStickersSwitch.addEventListener('change',async ()=>{
  showToast(admStickersSwitch.checked?'Stickers Ativados':'Stickers Desativados',admStickersSwitch.checked?'Figurinhas animadas liberadas na sala.':'Envio de stickers bloqueado temporariamente.','both');
 });
 
+admPhotosSwitch.addEventListener('change',async ()=>{
+ if(!gcUser||!gcUser.isAdmin)return;
+ await dbRefModSettings.update({photosEnabled:admPhotosSwitch.checked});
+ showToast(admPhotosSwitch.checked?'Fotos Liberadas':'Fotos Bloqueadas',admPhotosSwitch.checked?'Motoristas podem enviar fotos da câmera e galeria.':'Envio de fotos desativado para os motoristas.','both');
+});
+
 admPinSaveBtn.addEventListener('click',async ()=>{
  if(!gcUser||!gcUser.isAdmin)return;
  const txt=admPinnedInput.value.trim();
@@ -1659,6 +1968,26 @@ gcLeaveBtn.addEventListener('click', async ()=>{
  try{localStorage.removeItem('afe_gc_user');}catch{}
  refreshGcView();
 });
+
+async function sendGcPhoto(photoDataUrl,caption=''){
+ if(!gcUser || kickedFlag)return;
+ const isAdmin=Boolean(gcUser.isAdmin);
+ if(!isAdmin&&(bannedMap[gcClientId]||mutedMap[gcClientId]||modSettings.chatLocked||modSettings.photosEnabled===false))return;
+ const newMsgRef=dbRefMessages.push();
+ await newMsgRef.set({
+  id:newMsgRef.key,
+  clientId:gcClientId,
+  name:isAdmin?(gcUser.adminCustomName||'Abraão Gessé'):gcUser.name,
+  isAdmin,
+  adminCustomName:gcUser.adminCustomName||'',
+  platform:gcUser.platform||'Mercado Livre',
+  type:'photo',
+  photoUrl:photoDataUrl,
+  caption:caption,
+  text:caption||'[Foto enviada]',
+  ts:firebase.database.ServerValue.TIMESTAMP
+ });
+}
 
 async function sendGcMessage(text,stickerObj=null){
  if(!gcUser || kickedFlag)return;
