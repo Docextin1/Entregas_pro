@@ -115,7 +115,17 @@
 .gc-user-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px 14px;margin-bottom:12px}
 .gc-user-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;font-weight:700;color:#334155}
 .gc-online-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2);display:inline-block}
-.gc-feed{height:520px;overflow-y:auto;background-color:#efeae2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%238c8275' stroke-opacity='.25' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(18 22)'%3E%3Cpath d='M2 16h28v18H2zM30 22h11l8 9v3H30zM36 36a3.5 3.5 0 1 0 7 0M9 36a3.5 3.5 0 1 0 7 0M2 22h28'/%3E%3C/g%3E%3Cg transform='translate(148 20)'%3E%3Cpath d='M3 14h40l5 12v8H1v-8zM9 14l5-8h17l5 8M8 34a3.5 3.5 0 1 0 7 0M34 34a3.5 3.5 0 1 0 7 0'/%3E%3C/g%3E%3Cg transform='translate(84 102)'%3E%3Cpath d='M4 6h32v32H4zM4 15h32M20 6v32M4 6l16 9L36 6'/%3E%3C/g%3E%3Cg transform='translate(168 128)'%3E%3Cpath d='M7 28h28l-3-14H10zM11 14l4-7h12l5 7M9 28a4.5 4.5 0 1 0 9 0M27 28a4.5 4.5 0 1 0 9 0'/%3E%3C/g%3E%3Cg transform='translate(22 138)'%3E%3Cpath d='M20 3c-8.5 0-15 6.5-15 15 0 11 15 25 15 25s15-14 15-25C35 9.5 28.5 3 20 3z'/%3E%3Ccircle cx='20' cy='18' r='4.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");border:1px solid #dce2ed;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+
+/* Feed com Container Relativo para o Botão Flutuante de Rolar para Baixo */
+.gc-feed-container{position:relative;margin-bottom:12px}
+.gc-feed{height:520px;overflow-y:auto;background-color:#efeae2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%238c8275' stroke-opacity='.25' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(18 22)'%3E%3Cpath d='M2 16h28v18H2zM30 22h11l8 9v3H30zM36 36a3.5 3.5 0 1 0 7 0M9 36a3.5 3.5 0 1 0 7 0M2 22h28'/%3E%3C/g%3E%3Cg transform='translate(148 20)'%3E%3Cpath d='M3 14h40l5 12v8H1v-8zM9 14l5-8h17l5 8M8 34a3.5 3.5 0 1 0 7 0M34 34a3.5 3.5 0 1 0 7 0'/%3E%3C/g%3E%3Cg transform='translate(84 102)'%3E%3Cpath d='M4 6h32v32H4zM4 15h32M20 6v32M4 6l16 9L36 6'/%3E%3C/g%3E%3Cg transform='translate(168 128)'%3E%3Cpath d='M7 28h28l-3-14H10zM11 14l4-7h12l5 7M9 28a4.5 4.5 0 1 0 9 0M27 28a4.5 4.5 0 1 0 9 0'/%3E%3C/g%3E%3Cg transform='translate(22 138)'%3E%3Cpath d='M20 3c-8.5 0-15 6.5-15 15 0 11 15 25 15 25s15-14 15-25C35 9.5 28.5 3 20 3z'/%3E%3Ccircle cx='20' cy='18' r='4.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");border:1px solid #dce2ed;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
+
+/* Botão Flutuante de Rolar para Baixo (Estilo WhatsApp) */
+.gc-scroll-bottom-btn{position:absolute;right:16px;bottom:18px;background:#ffffff;color:#253b80;border:1px solid #cbd5e1;border-radius:50%;width:40px;height:40px;display:grid;place-items:center;font-size:18px;cursor:pointer;box-shadow:0 6px 20px rgba(15,23,42,.22);transition:all .18s ease;z-index:10;opacity:0;transform:translateY(8px);pointer-events:none}
+.gc-scroll-bottom-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.gc-scroll-bottom-btn:hover{background:#f8fafc;transform:scale(1.08)}
+.gc-scroll-badge{position:absolute;top:-4px;right:-4px;background:#16a34a;color:#fff;font-size:9.5px;font-weight:900;padding:1px 5px;border-radius:99px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+
 .gc-msg{position:relative;z-index:1;max-width:86%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.45;word-wrap:break-word;background:#fff;border:1px solid #e2e8f0;align-self:flex-start;box-shadow:0 2px 6px rgba(15,23,42,.05)}
 .gc-msg.mine{align-self:flex-end;background:#eef3ff;border-color:#c7d7fe}
 .gc-msg.is-admin{align-self:flex-start;background:linear-gradient(135deg,#fffef5 0%,#fff8d6 100%);border:1.5px solid #e6c200;border-left:5px solid #172554;box-shadow:0 6px 18px rgba(23,37,84,.09)}
@@ -177,11 +187,11 @@
 
 /* Gaveta de Stickers / Figurinhas Animadas & Menu/Visor de Câmera */
 .sticker-wrapper{position:relative}
-.sticker-toggle-btn{background:#eef1f8;color:var(--blue);border:1px solid #dce2ef;border-radius:12px;width:44px;height:44px;display:grid;place-items:center;font-size:20px;cursor:pointer;flex:none;transition:.15s}
+.sticker-toggle-btn{background:#eef1f8;color:var(--blue);border:1px solid #dce2ef;border-radius:12px;width:38px;height:42px;display:grid;place-items:center;font-size:17px;cursor:pointer;flex:none;transition:.15s}
 .sticker-toggle-btn:hover,.sticker-toggle-btn.active{background:var(--yellow);color:#172554;border-color:#e6cf00}
 .sticker-toggle-btn:disabled{opacity:.45;cursor:not-allowed}
-.sticker-drawer{position:absolute;bottom:58px;left:0;width:min(360px,calc(100vw - 44px));background:#fff;border:1.5px solid #cbd5e1;border-radius:16px;box-shadow:0 16px 38px rgba(15,23,42,.22);z-index:50;overflow:hidden;animation:appear .16s ease}
-.photo-menu{position:absolute;bottom:58px;left:52px;width:245px;background:#fff;border:1.5px solid #cbd5e1;border-radius:15px;box-shadow:0 16px 38px rgba(15,23,42,.22);z-index:55;padding:6px;display:flex;flex-direction:column;gap:4px;animation:appear .15s ease}
+.sticker-drawer{position:absolute;bottom:54px;left:0;width:min(360px,calc(100vw - 44px));background:#fff;border:1.5px solid #cbd5e1;border-radius:16px;box-shadow:0 16px 38px rgba(15,23,42,.22);z-index:50;overflow:hidden;animation:appear .16s ease}
+.photo-menu{position:absolute;bottom:54px;left:42px;width:245px;background:#fff;border:1.5px solid #cbd5e1;border-radius:15px;box-shadow:0 16px 38px rgba(15,23,42,.22);z-index:55;padding:6px;display:flex;flex-direction:column;gap:4px;animation:appear .15s ease}
 .photo-menu-btn{width:100%;border:0;background:transparent;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;text-align:left;font-family:inherit;font-size:12.5px;font-weight:800;color:#172033;cursor:pointer;transition:.12s}
 .photo-menu-btn:hover{background:#eef3ff;color:var(--blue)}
 .photo-menu-btn span.pm-ico{font-size:18px;width:24px;text-align:center;flex:none}
@@ -382,7 +392,13 @@
 
  <!-- Área Ativa de Mensagens -->
  <div id="gcActiveChatArea">
-  <div class="gc-feed" id="gcFeed"></div>
+  <div class="gc-feed-container">
+   <div class="gc-feed" id="gcFeed"></div>
+   <button type="button" class="gc-scroll-bottom-btn" id="gcScrollBottomBtn" title="Ir para a mensagem mais recente">
+    ↓
+    <span class="gc-scroll-badge hidden" id="gcUnreadBadge">0</span>
+   </button>
+  </div>
   <div id="gcModNotice" class="gc-status-notice hidden"></div>
   <div class="sticker-wrapper">
    <div id="stickerDrawer" class="sticker-drawer hidden">
@@ -1251,7 +1267,7 @@ const dbRefBanned = db.ref('envios_extras_chat/moderation/banned');
 const ADMIN_COMMANDS=['/admin544111','544111'];
 const gcLoginView=$('gcLoginView'),gcRoomView=$('gcRoomView'),gcJoinForm=$('gcJoinForm');
 const gcNameInput=$('gcNameInput'),gcPlatSelect=$('gcPlatSelect'),gcCurrentUserBadge=$('gcCurrentUserBadge');
-const gcFeed=$('gcFeed'),gcMsgForm=$('gcMsgForm'),gcMsgInput=$('gcMsgInput'),gcSendBtn=$('gcSendBtn'),gcLeaveBtn=$('gcLeaveBtn');
+const gcFeed=$('gcFeed'),gcScrollBottomBtn=$('gcScrollBottomBtn'),gcUnreadBadge=$('gcUnreadBadge'),gcMsgForm=$('gcMsgForm'),gcMsgInput=$('gcMsgInput'),gcSendBtn=$('gcSendBtn'),gcLeaveBtn=$('gcLeaveBtn');
 const gcAdminPanelToggle=$('gcAdminPanelToggle'),gcAdminPanel=$('gcAdminPanel');
 const admLockChatSwitch=$('admLockChatSwitch'),admStickersSwitch=$('admStickersSwitch'),admPhotosSwitch=$('admPhotosSwitch');
 const admPinnedInput=$('admPinnedInput'),admPinSaveBtn=$('admPinSaveBtn'),admPinClearBtn=$('admPinClearBtn');
@@ -1279,6 +1295,33 @@ let mutedMap={};
 let bannedMap={};
 let kickedFlag=false;
 let handlingKick=false;
+let unreadMessagesCount=0;
+let userIsScrolledUp=false;
+
+// Controle de rolagem do feed do chat estilo WhatsApp
+if(gcFeed){
+ gcFeed.addEventListener('scroll',()=>{
+  const distanceToBottom=gcFeed.scrollHeight-gcFeed.scrollTop-gcFeed.clientHeight;
+  userIsScrolledUp=distanceToBottom>110;
+  if(!userIsScrolledUp){
+   unreadMessagesCount=0;
+   gcScrollBottomBtn.classList.remove('visible');
+   gcUnreadBadge.classList.add('hidden');
+  }else{
+   gcScrollBottomBtn.classList.add('visible');
+  }
+ });
+}
+
+if(gcScrollBottomBtn){
+ gcScrollBottomBtn.addEventListener('click',()=>{
+  userIsScrolledUp=false;
+  unreadMessagesCount=0;
+  gcScrollBottomBtn.classList.remove('visible');
+  gcUnreadBadge.classList.add('hidden');
+  gcFeed.scrollTo({top:gcFeed.scrollHeight,behavior:'smooth'});
+ });
+}
 
 // Auto-expansão estilo WhatsApp para o textarea do Chat Geral (48px até 140px)
 function autoResizeGcInput(){
@@ -1742,7 +1785,9 @@ function renderAdminPeerList(){
 }
 
 function renderGcMessages(){
- const wasNearBottom=(gcFeed.scrollHeight-gcFeed.scrollTop-gcFeed.clientHeight)<90;
+ const distanceToBottom=gcFeed.scrollHeight-gcFeed.scrollTop-gcFeed.clientHeight;
+ const wasNearBottom=distanceToBottom<110;
+
  gcFeed.replaceChildren();
  if(!gcMessages.length){
   const empty=document.createElement('div');
@@ -1752,7 +1797,7 @@ function renderGcMessages(){
   return;
  }
  const isAdmin=Boolean(gcUser&&gcUser.isAdmin);
- gcMessages.forEach(m=>{
+ gcMessages.forEach((m,idx)=>{
   const isMine=m.clientId===gcClientId;
   const isSticker=m.type==='sticker'&&m.stickerUrl;
   const isPhoto=m.type==='photo'&&m.photoUrl;
@@ -1811,7 +1856,19 @@ function renderGcMessages(){
   }
   gcFeed.appendChild(item);
  });
- if(wasNearBottom)gcFeed.scrollTop=gcFeed.scrollHeight;
+
+ if(wasNearBottom || !userIsScrolledUp){
+  gcFeed.scrollTop=gcFeed.scrollHeight;
+  userIsScrolledUp=false;
+  unreadMessagesCount=0;
+  gcScrollBottomBtn.classList.remove('visible');
+  gcUnreadBadge.classList.add('hidden');
+ }else{
+  unreadMessagesCount++;
+  gcUnreadBadge.textContent=unreadMessagesCount>99?'99+':unreadMessagesCount;
+  gcUnreadBadge.classList.remove('hidden');
+  gcScrollBottomBtn.classList.add('visible');
+ }
 }
 
 function refreshGcView(){
