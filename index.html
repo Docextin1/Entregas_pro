@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#ffe600"><meta name="description" content="Envios Pro • Controle financeiro de rotas e entregas.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Envios Pro">
+<meta name="mobile-web-app-capable" content="yes">
+<link id="pwaFavicon" rel="icon" type="image/png">
+<link id="pwaAppleIcon" rel="apple-touch-icon">
+<link id="pwaManifest" rel="manifest">
 <title>Envios Pro • Análise Financeira</title>
 <style>
 :root{--yellow:#ffe600;--blue:#253b80;--navy:#172554;--ink:#172033;--muted:#718096;--bg:#f3f5fa;--line:#e5e9f2;--green:#13834a;--red:#c23b43;--orange:#ee4d2d}
@@ -279,6 +286,225 @@ body.gc-locked-viewport .gc-login-box{margin:auto}
 
 @media(max-width:760px){.brand{align-items:flex-start;flex-direction:column}.marketplaces{width:100%}.s8,.s6,.s4,.s3{grid-column:span 12}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.history-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.platform-compare{grid-template-columns:1fr}.card{padding:16px}.date-filter-bar{align-items:stretch}.date-filter-inputs{width:100%}.date-filter-field{flex:1;min-width:130px}}@media(max-width:430px){.wrap{padding-left:12px;padding-right:12px}.top{padding:16px 14px 20px}.brand-left{gap:12px}.brand-emblem{width:54px;height:54px;border-radius:15px}.market-logo{flex:1;justify-content:center;padding:8px 7px;font-size:11px}.market-logo svg,.market-logo img{width:30px;height:30px}.tab{padding:8px 11px;gap:8px}.nav-icon{width:30px;height:30px;font-size:15px}.tab b{font-size:12px}.tab small{font-size:9px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.kpi strong{font-size:18px}.developer-top{display:block;margin:2px 0 0}body.gc-locked-viewport .wrap{padding:6px 6px 8px}body.gc-locked-viewport #general-chat > .card{padding:8px 9px}}
 </style>
+<script>
+// Geração dinâmica do Ícone Oficial (Caminhão + Entregador + Envios PRO) e Manifesto PWA para instalação no celular
+(function initEnviosProPWA(){
+ function renderAppIconDataUrl(size){
+  const canvas=document.createElement('canvas');
+  canvas.width=size;
+  canvas.height=size;
+  const ctx=canvas.getContext('2d');
+  const s=size/512;
+
+  // Fundo quadrado com gradiente azul-marinho oficial (#172554 -> #1e3a8a)
+  const bgGrad=ctx.createLinearGradient(0,0,size,size);
+  bgGrad.addColorStop(0,'#172554');
+  bgGrad.addColorStop(1,'#1e3a8a');
+  ctx.fillStyle=bgGrad;
+  ctx.fillRect(0,0,size,size);
+
+  // Moldura interna sutil dourada/amarela para acabamento de ícone de aplicativo
+  ctx.strokeStyle='rgba(255, 230, 0, 0.28)';
+  ctx.lineWidth=10*s;
+  ctx.strokeRect(18*s,18*s,476*s,476*s);
+
+  // Desenho do caminhão e entregador (fiel ao emblema do banner) na metade superior
+  ctx.save();
+  ctx.translate(46*s,30*s);
+  ctx.scale(6.5*s,6.5*s);
+
+  // Traços de velocidade amarelos
+  ctx.strokeStyle='rgba(255, 230, 0, 0.85)';
+  ctx.lineWidth=2.3;
+  ctx.lineCap='round';
+  ctx.beginPath();
+  ctx.moveTo(6,20);ctx.lineTo(15,20);
+  ctx.moveTo(4,28);ctx.lineTo(12,28);
+  ctx.moveTo(7,36);ctx.lineTo(14,36);
+  ctx.stroke();
+
+  // Baú branco do caminhão
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  if(ctx.roundRect)ctx.roundRect(14,18,24,18,3.5);
+  else ctx.rect(14,18,24,18);
+  ctx.fill();
+
+  // Cabine amarela
+  ctx.fillStyle='#ffe600';
+  ctx.beginPath();
+  ctx.moveTo(38,23);
+  ctx.lineTo(46,23);
+  ctx.lineTo(51,29);
+  ctx.lineTo(51,36);
+  ctx.lineTo(38,36);
+  ctx.closePath();
+  ctx.fill();
+
+  // Vidro da cabine
+  ctx.fillStyle='#172554';
+  ctx.beginPath();
+  ctx.moveTo(40.5,25.5);
+  ctx.lineTo(45.5,25.5);
+  ctx.lineTo(48.5,29);
+  ctx.lineTo(40.5,29);
+  ctx.closePath();
+  ctx.fill();
+
+  // Caixa laranja em destaque no baú
+  ctx.fillStyle='#f59e0b';
+  ctx.beginPath();
+  if(ctx.roundRect)ctx.roundRect(20,22,12,10,2);
+  else ctx.rect(20,22,12,10);
+  ctx.fill();
+
+  ctx.strokeStyle='#172554';
+  ctx.lineWidth=1.4;
+  ctx.beginPath();
+  ctx.moveTo(26,22);ctx.lineTo(26,32);
+  ctx.moveTo(20,27);ctx.lineTo(32,27);
+  ctx.stroke();
+
+  // Rodas do caminhão
+  ctx.fillStyle='#0f172a';
+  ctx.strokeStyle='#ffe600';
+  ctx.lineWidth=1.8;
+  ctx.beginPath();ctx.arc(21,38,4,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.arc(44,38,4,0,Math.PI*2);ctx.fill();ctx.stroke();
+
+  // Entregador ágil à frente
+  ctx.fillStyle='#fde68a';
+  ctx.beginPath();ctx.arc(54,18,3.5,0,Math.PI*2);ctx.fill();
+
+  // Boné amarelo
+  ctx.fillStyle='#ffe600';
+  ctx.beginPath();
+  ctx.moveTo(50.5,17.5);
+  ctx.bezierCurveTo(50.5,15.5,52,14.5,54.5,14.5);
+  ctx.bezierCurveTo(56.5,14.5,58,15.8,58,17.5);
+  ctx.lineTo(60.5,17.5);
+  ctx.lineTo(59,18.5);
+  ctx.lineTo(50.5,18.5);
+  ctx.closePath();
+  ctx.fill();
+
+  // Camisa verde
+  ctx.fillStyle='#22c55e';
+  ctx.beginPath();
+  ctx.moveTo(51,23);
+  ctx.quadraticCurveTo(51,21.5,53.5,21.5);
+  ctx.lineTo(56,21.5);
+  ctx.quadraticCurveTo(58,21.5,58.2,23.5);
+  ctx.lineTo(59.5,30);
+  ctx.lineTo(51,30);
+  ctx.closePath();
+  ctx.fill();
+
+  // Pernas do entregador
+  ctx.strokeStyle='#e2e8f0';
+  ctx.lineWidth=2.4;
+  ctx.beginPath();
+  ctx.moveTo(52.5,30);ctx.lineTo(50,41);
+  ctx.moveTo(56.5,30);ctx.lineTo(59.5,41);
+  ctx.stroke();
+
+  // Caixa nas mãos do entregador
+  ctx.fillStyle='#fbbf24';
+  ctx.strokeStyle='#172554';
+  ctx.lineWidth=1;
+  ctx.beginPath();
+  if(ctx.roundRect)ctx.roundRect(55,23,8,7,1.5);
+  else ctx.rect(55,23,8,7);
+  ctx.fill();
+  ctx.stroke();
+
+  // Linha amarela da pista
+  ctx.strokeStyle='#ffe600';
+  ctx.lineWidth=2.3;
+  ctx.beginPath();
+  ctx.moveTo(8,46);ctx.lineTo(58,46);
+  ctx.stroke();
+  ctx.restore();
+
+  // Tipografia combinada "Envios" + pílula "PRO" na base do ícone
+  ctx.save();
+  ctx.font=`900 ${Math.round(78*s)}px Inter, system-ui, -apple-system, sans-serif`;
+  ctx.textBaseline='middle';
+  const wordEnvios='Envios';
+  const enviosWidth=ctx.measureText(wordEnvios).width;
+  const pillW=126*s;
+  const pillH=56*s;
+  const gap=14*s;
+  const totalW=enviosWidth+gap+pillW;
+  const startX=(size-totalW)/2;
+  const baseY=416*s;
+
+  // Texto "Envios" em branco nítido
+  ctx.fillStyle='#ffffff';
+  ctx.fillText(wordEnvios,startX,baseY);
+
+  // Pílula amarela "PRO"
+  const pillX=startX+enviosWidth+gap;
+  const pillY=baseY-pillH/2;
+  ctx.fillStyle='#ffe600';
+  ctx.beginPath();
+  if(ctx.roundRect)ctx.roundRect(pillX,pillY,pillW,pillH,pillH/2);
+  else ctx.rect(pillX,pillY,pillW,pillH);
+  ctx.fill();
+
+  ctx.fillStyle='#172554';
+  ctx.font=`900 ${Math.round(36*s)}px Inter, system-ui, -apple-system, sans-serif`;
+  ctx.textAlign='center';
+  ctx.fillText('PRO',pillX+pillW/2,baseY+1*s);
+  ctx.restore();
+
+  return canvas.toDataURL('image/png');
+ }
+
+ try{
+  const icon192=renderAppIconDataUrl(192);
+  const icon512=renderAppIconDataUrl(512);
+
+  const favEl=document.getElementById('pwaFavicon');
+  const appleEl=document.getElementById('pwaAppleIcon');
+  const manifestEl=document.getElementById('pwaManifest');
+
+  if(favEl)favEl.href=icon192;
+  if(appleEl)appleEl.href=icon512;
+
+  const startUrl=window.location.href.split('#')[0];
+  const manifestObj={
+   id:startUrl,
+   name:'Envios Pro • Análise Financeira',
+   short_name:'Envios Pro',
+   description:'Controle seus custos, acompanhe seus resultados e saiba quanto realmente sobra em cada rota.',
+   start_url:startUrl,
+   scope:startUrl.substring(0,startUrl.lastIndexOf('/')+1)||'/',
+   display:'standalone',
+   orientation:'portrait',
+   background_color:'#172554',
+   theme_color:'#ffe600',
+   icons:[
+    {src:icon192,sizes:'192x192',type:'image/png',purpose:'any maskable'},
+    {src:icon512,sizes:'512x512',type:'image/png',purpose:'any maskable'}
+   ]
+  };
+
+  const manifestBlob=new Blob([JSON.stringify(manifestObj)],{type:'application/manifest+json'});
+  if(manifestEl)manifestEl.href=URL.createObjectURL(manifestBlob);
+
+  // Registro de Service Worker leve via Blob para habilitar o prompt nativo de instalação no Android/Chrome
+  if('serviceWorker' in navigator&&window.location.protocol.startsWith('http')){
+   const swCode="self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));self.addEventListener('fetch',()=>{});";
+   const swBlob=new Blob([swCode],{type:'application/javascript'});
+   const swUrl=URL.createObjectURL(swBlob);
+   navigator.serviceWorker.register(swUrl).catch(()=>{});
+  }
+ }catch(e){
+  console.warn('Aviso ao configurar ícone PWA:',e);
+ }
+})();
+</script>
 
 <!-- Firebase App SDK & Realtime Database SDK (Compat) -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
