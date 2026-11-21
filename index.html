@@ -656,6 +656,8 @@ body.gc-locked-viewport .gc-login-box{margin:auto}
     <div class="field">
      <label for="editRouteLiters">Combustível consumido (litros)</label>
      <input type="number" id="editRouteLiters" min="0.01" step="0.01" required>
+     <label class="toggle" style="margin:4px 0 0"><input id="editUseDefaultConsumption" type="checkbox"> <span id="editConsumptionToggleLabel">Usar consumo padrão do veículo (km/L)</span></label>
+     <div class="mode-note hidden" id="editConsumptionNote" style="padding:7px 9px;font-size:10.5px"></div>
     </div>
     <div class="field">
      <label for="editRouteFuel">Preço da gasolina (R$/L)</label>
@@ -933,6 +935,7 @@ body.gc-locked-viewport .gc-login-box{margin:auto}
 const $=id=>document.getElementById(id);
 const money=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const num=id=>{const v=Number($(id).value);return Number.isFinite(v)&&v>0?v:0};
+const round2=n=>Math.round((Number(n||0)+Number.EPSILON)*100)/100;
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const DEFAULT_SETTINGS={maintenance:.45,fuel:6,dailyGoal:80,defaultConsumption:10,vehicleName:''};
 function readJSON(key,fallback){try{const v=JSON.parse(localStorage.getItem(key));return v??fallback}catch{return fallback}}
@@ -1242,11 +1245,11 @@ function showToast(title,description='',platform=selectedPlatform){
 
 function costData(){
  const km=num('km'),auto=$('useDefaultConsumption').checked,standard=Math.max(.1,Number(settings.defaultConsumption)||10);
- const liters=auto?(km>0?km/standard:0):num('liters'),fuel=num('fuel');
+ const liters=auto?(km>0?round2(km/standard):0):round2(num('liters')),fuel=num('fuel');
  const fuelCost=liters*fuel,maint=km*settings.maintenance;
  const hasExtras=$('includeExtras').checked,other=hasExtras?num('tolls')+num('parking')+num('other'):0;
  const cost=fuelCost+maint+other,hasGross=$('includeGross').checked,gross=hasGross?num('gross'):null,profit=hasGross?gross-cost:null;
- return {platform:selectedPlatform,km,liters,fuel,fuelCost,maint,other,cost,hasExtras,hasGross,gross,profit,consumption:liters>0?km/liters:null,perKm:km>0?cost/km:null,revenueKm:km>0&&hasGross?gross/km:null,margin:hasGross&&gross>0?profit/gross*100:null,autoConsumption:auto,consumptionRate:auto?standard:(liters>0?km/liters:null),tolls:hasExtras?num('tolls'):0,parking:hasExtras?num('parking'):0,otherExpense:hasExtras?num('other'):0};
+ return {platform:selectedPlatform,km,liters,fuel,fuelCost,maint,other,cost,hasExtras,hasGross,gross,profit,consumption:liters>0?km/liters:null,perKm:km>0?cost/km:null,revenueKm:km>0&&hasGross?gross/km:null,margin:hasGross&&gross>0?profit/gross*100:null,autoConsumption:auto,consumptionRate:auto?standard:(liters>0?km/liters:null),vehicleName:auto?(settings.vehicleName||''):'',tolls:hasExtras?num('tolls'):0,parking:hasExtras?num('parking'):0,otherExpense:hasExtras?num('other'):0};
 }
 
 function renderCalc(){
@@ -1331,10 +1334,15 @@ function renderHistory(){
 // ================= EDIÇÃO COMPLETA DE CORRIDA NO HISTÓRICO =================
 const editRouteModal=$('editRouteModal');
 const editRouteForm=$('editRouteForm');
+let editActiveConsumptionRate=10;
+let editActiveVehicleName='';
 
 function getEditModalCalculatedData(){
  const km=Math.max(0,Number($('editRouteKm').value)||0);
- const liters=Math.max(0,Number($('editRouteLiters').value)||0);
+ const auto=$('editUseDefaultConsumption').checked;
+ const rate=Math.max(0.1,Number(editActiveConsumptionRate)||Number(settings.defaultConsumption)||10);
+ const rawLiters=auto?(km>0?km/rate:0):Math.max(0,Number($('editRouteLiters').value)||0);
+ const liters=round2(rawLiters);
  const fuel=Math.max(0,Number($('editRouteFuel').value)||0);
  const maintRate=Math.max(0,Number($('editRouteMaintRate').value)||0);
  const fuelCost=liters*fuel;
@@ -1366,6 +1374,9 @@ function getEditModalCalculatedData(){
   hasGross,
   gross,
   profit,
+  autoConsumption:auto,
+  consumptionRate:auto?rate:(liters>0?km/liters:null),
+  vehicleName:auto?editActiveVehicleName:'',
   consumption:liters>0?km/liters:null,
   perKm:km>0?cost/km:null,
   revenueKm:km>0&&hasGross?gross/km:null,
@@ -1374,9 +1385,35 @@ function getEditModalCalculatedData(){
 }
 
 function updateEditRoutePreview(){
+ const auto=$('editUseDefaultConsumption').checked;
+ const litersInput=$('editRouteLiters');
+ const noteEl=$('editConsumptionNote');
+ const toggleLabel=$('editConsumptionToggleLabel');
+ const rateDisplay=Number(editActiveConsumptionRate||settings.defaultConsumption||10).toLocaleString('pt-BR',{maximumFractionDigits:2});
+ const vLabel=editActiveVehicleName?` (${editActiveVehicleName})`:'';
+
+ if(toggleLabel){
+  toggleLabel.textContent=`Usar consumo do veículo${vLabel}: ${rateDisplay} km/L`;
+ }
+
  $('editExtrasPanel').classList.toggle('hidden',!$('editIncludeExtras').checked);
  $('editGrossWrap').style.display=$('editIncludeGross').checked?'flex':'none';
+
  const d=getEditModalCalculatedData();
+ if(auto){
+  litersInput.disabled=true;
+  litersInput.value=d.liters>0?d.liters.toFixed(2):'0.00';
+  if(noteEl){
+   noteEl.textContent=`Automático: ${d.km.toLocaleString('pt-BR',{maximumFractionDigits:1})} km ÷ ${rateDisplay} km/L = ${d.liters.toFixed(2).replace('.',',')} L`;
+   noteEl.classList.remove('hidden');
+  }
+ }else{
+  litersInput.disabled=false;
+  if(noteEl){
+   noteEl.classList.add('hidden');
+  }
+ }
+
  $('editPrevFuelMaint').textContent=money(d.fuelCost+d.maint);
  $('editPrevTotalCost').textContent=money(d.cost);
  const profitBox=$('editPrevProfitBox');
@@ -1395,7 +1432,24 @@ function openEditRouteModal(route){
  $('editRouteDate').value=route.date||today();
  $('editRoutePlatform').value=route.platform||'Mercado Livre';
  $('editRouteKm').value=Number(route.km||0);
- $('editRouteLiters').value=Number(route.liters||0);
+
+ const wasAuto=Boolean(route.autoConsumption);
+ const currentCfgRate=Math.max(0.1,Number(settings.defaultConsumption)||10);
+ const currentCfgVehicle=(settings.vehicleName||'').trim();
+
+ if(wasAuto){
+  editActiveConsumptionRate=Number(route.consumptionRate)>0?Number(route.consumptionRate):currentCfgRate;
+  editActiveVehicleName=(route.vehicleName&&route.vehicleName.trim())?route.vehicleName.trim():currentCfgVehicle;
+ }else{
+  editActiveConsumptionRate=currentCfgRate;
+  editActiveVehicleName=currentCfgVehicle;
+ }
+
+ $('editUseDefaultConsumption').checked=wasAuto;
+ const initialLiters=wasAuto&&Number(route.km)>0
+  ? round2(Number(route.km)/editActiveConsumptionRate)
+  : round2(Number(route.liters||0));
+ $('editRouteLiters').value=initialLiters.toFixed(2);
  $('editRouteFuel').value=Number(route.fuel||settings.fuel||0);
 
  const derivedMaintRate=route.maintenanceRate!==undefined&&route.maintenanceRate!==null
@@ -1427,7 +1481,14 @@ function closeEditRouteModal(){
  const el=$(id);
  if(el)el.addEventListener('input',updateEditRoutePreview);
 });
-['editIncludeExtras','editIncludeGross'].forEach(id=>{
+$('editRouteLiters').addEventListener('blur',()=>{
+ if(!$('editUseDefaultConsumption').checked){
+  const val=Math.max(0,Number($('editRouteLiters').value)||0);
+  if(val>0)$('editRouteLiters').value=round2(val).toFixed(2);
+  updateEditRoutePreview();
+ }
+});
+['editUseDefaultConsumption','editIncludeExtras','editIncludeGross'].forEach(id=>{
  const el=$(id);
  if(el)el.addEventListener('change',updateEditRoutePreview);
 });
@@ -1469,9 +1530,7 @@ editRouteForm.addEventListener('submit',e=>{
 
  routes[idx]={
   ...routes[idx],
-  ...d,
-  autoConsumption:false,
-  consumptionRate:d.liters>0?d.km/d.liters:null
+  ...d
  };
  persist();
  closeEditRouteModal();
